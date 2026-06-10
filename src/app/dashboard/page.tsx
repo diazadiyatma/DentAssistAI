@@ -173,14 +173,6 @@ export default function DashboardOverview() {
           </motion.p>
         </div>
         
-        <div className="flex gap-3">
-          <Button variant="outline" className="bg-white border-border text-foreground rounded-2xl h-12 px-6 font-bold hover:bg-slate-50 transition-all">
-            Download Report
-          </Button>
-          <Button className="bg-primary hover:bg-primary/90 text-white rounded-2xl h-12 px-6 font-black transition-all shadow-lg shadow-primary/20">
-            New AI Session
-          </Button>
-        </div>
       </div>
 
       {/* Stats Grid */}

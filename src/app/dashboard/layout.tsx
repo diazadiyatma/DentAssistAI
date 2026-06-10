@@ -2,7 +2,7 @@
 
 import { Sidebar } from "@/components/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bell, Search, Command, Menu, X } from "lucide-react";
+import { Search, Command, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
@@ -97,10 +97,7 @@ export default function DashboardLayout({
           </div>
 
           <div className="flex items-center gap-5">
-            <Button variant="ghost" size="icon" className="relative group text-muted-foreground hover:text-primary hover:bg-slate-50 rounded-xl transition-all">
-              <Bell className="h-5 w-5 group-hover:scale-110 transition-transform" />
-              <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-primary shadow-lg shadow-primary/40 border-2 border-white" />
-            </Button>
+
             
             <div className="h-8 w-px bg-border mx-2" />
             

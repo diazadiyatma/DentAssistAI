@@ -4,9 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Activity, Menu, X } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
+  console.log('Navbar session:', session);
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-border bg-white/85 backdrop-blur-md">
@@ -28,26 +31,31 @@ export function Navbar() {
           <Link href="#about" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-all flex items-center">
             About
           </Link>
-          <div className="flex items-center gap-4 ml-4">
-            <Button variant="ghost" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-slate-50">
+
+        </nav>
+        <div className="flex items-center gap-4 ml-4">
+          <Link href="/register">
+            <Button variant="ghost" className="text-xs font-bold uppercase tracking-widest text-primary hover:text-primary hover:bg-slate-50">
               Sign In
             </Button>
-            <Link href="/dashboard">
-              <Button className="bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[10px] px-6 shadow-lg shadow-primary/20 transition-all hover:scale-105">
-                Get Started
-              </Button>
-            </Link>
-          </div>
-        </nav>
+          </Link>
+        </div>
 
-        {/* Mobile Toggle Button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex h-11 w-11 items-center justify-center rounded-lg text-muted-foreground hover:bg-slate-100 md:hidden focus:outline-none"
-          aria-label="Toggle Menu"
-        >
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        {/* Mobile Toggle Button and Auth */}
+        <div className="flex items-center gap-4 md:hidden">
+          <Link href="/register">
+            <Button variant="ghost" className="text-xs font-bold uppercase tracking-widest text-primary hover:text-primary hover:bg-slate-50">
+              Sign In
+            </Button>
+          </Link>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-muted-foreground hover:bg-slate-100 focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer Menu */}
@@ -68,17 +76,6 @@ export function Navbar() {
             >
               About
             </Link>
-            <hr className="border-slate-100 my-2" />
-            <div className="flex flex-col gap-3">
-              <Button variant="outline" className="w-full h-11 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                Sign In
-              </Button>
-              <Link href="/dashboard" onClick={() => setIsOpen(false)}>
-                <Button className="w-full h-11 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-md">
-                  Get Started
-                </Button>
-              </Link>
-            </div>
           </nav>
         </div>
       )}

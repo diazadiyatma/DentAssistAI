@@ -23,7 +23,7 @@ export async function GET() {
       },
     });
 
-    const history = raw.map((record) => {
+    const history = raw.map((record: { id: string; originalContent: string; quizResult: string; createdAt: Date }) => {
       const topicMatch = record.originalContent.match(/quiz about (.+?)\./i);
       const topic = topicMatch ? topicMatch[1].trim() : record.originalContent.slice(0, 80);
       const diffMatch = record.originalContent.match(/Generate a (\w+) level/i);

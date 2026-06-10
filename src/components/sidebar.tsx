@@ -20,11 +20,21 @@ const historyItems = [
   { name: "Quiz History", href: "/dashboard/history/quiz", icon: GraduationCap, color: "text-emerald-500", bg: "bg-emerald-500/10" },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen?: boolean;
+  setIsOpen?: (isOpen: boolean) => void;
+}
+
+export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 border-r border-white/5 bg-[#0F172A] flex flex-col h-screen fixed top-0 left-0 z-[100]">
+    <aside 
+      className={cn(
+        "w-64 border-r border-white/5 bg-[#0F172A] flex flex-col h-screen fixed top-0 left-0 z-[100] transition-transform duration-300 ease-in-out",
+        isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      )}
+    >
       <div className="h-20 flex items-center px-8 border-b border-white/5">
         <Link href="/" className="flex items-center gap-3 group">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20 group-hover:scale-110 transition-all duration-300">
@@ -45,6 +55,7 @@ export function Sidebar() {
               key={item.name}
               href={item.href}
               className="relative group block"
+              onClick={() => setIsOpen && setIsOpen(false)}
             >
               <div
                 className={cn(
@@ -87,6 +98,7 @@ export function Sidebar() {
               key={item.name}
               href={item.href}
               className="relative group block"
+              onClick={() => setIsOpen && setIsOpen(false)}
             >
               <div
                 className={cn(

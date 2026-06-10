@@ -2,7 +2,7 @@
 
 import { Sidebar } from "@/components/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bell, Search, Command } from "lucide-react";
+import { Bell, Search, Command, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
@@ -20,6 +20,7 @@ export default function DashboardLayout({
   const { data: session, status } = useSession();
   const [displayName, setDisplayName] = useState<string>("");
   const [displayEmail, setDisplayEmail] = useState<string>("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Sync name/email from localStorage (saved by settings page), fallback to session
   useEffect(() => {
@@ -58,20 +59,40 @@ export default function DashboardLayout({
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/5 rounded-full blur-[120px]" />
       </div>
 
-      <Sidebar />
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[90] md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       
-      <div className="flex-1 ml-64 flex flex-col h-screen relative">
+      <div className="flex-1 md:ml-64 flex flex-col h-screen relative w-full overflow-hidden">
         {/* Medical Top Navbar */}
-        <header className="h-20 flex items-center justify-between px-8 border-b border-border bg-white/80 backdrop-blur-xl z-50">
-          <div className="flex items-center max-w-md w-full relative group">
-            <Search className="absolute left-3 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-            <input 
-              type="text" 
-              placeholder="Search medical records, AI insights..." 
-              className="w-full bg-slate-50 border border-border rounded-full py-2.5 pl-10 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50 focus:bg-white transition-all"
-            />
-            <div className="absolute right-3 flex items-center gap-1 px-1.5 py-0.5 rounded border border-border bg-background text-[10px] text-muted-foreground font-mono">
-              <Command className="w-2.5 h-2.5" /> K
+        <header className="h-20 flex items-center justify-between px-4 md:px-8 border-b border-border bg-white/80 backdrop-blur-xl z-50">
+          <div className="flex items-center gap-2 md:gap-0 max-w-md w-full relative group">
+            {/* Mobile Hamburger Toggle */}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="md:hidden text-muted-foreground hover:text-primary hover:bg-slate-50 rounded-xl flex-shrink-0"
+              onClick={() => setIsSidebarOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+            
+            <div className="relative w-full">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+              <input 
+                type="text" 
+                placeholder="Search medical records, AI insights..." 
+                className="w-full bg-slate-50 border border-border rounded-full py-2.5 pl-10 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50 focus:bg-white transition-all"
+              />
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-1.5 py-0.5 rounded border border-border bg-background text-[10px] text-muted-foreground font-mono">
+                <Command className="w-2.5 h-2.5" /> K
+              </div>
             </div>
           </div>
 

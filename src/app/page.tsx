@@ -150,7 +150,7 @@ export default function LandingPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none" />
               <img 
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+                src="/foto%20dental%20assist%20ai.jpg" 
                 alt="Dashboard Preview Mock" 
                 className="rounded-xl border border-border opacity-90 object-cover h-[300px] md:h-[500px] w-full"
               />

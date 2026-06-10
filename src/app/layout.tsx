@@ -28,9 +28,9 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} antialiased h-full`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground font-sans selection:bg-primary/30">
+      <body className="min-h-screen flex flex-col bg-background text-foreground font-sans overflow-x-hidden selection:bg-primary/30">
         <SessionProvider>
-          <div className="relative flex min-h-screen flex-col">
+          <div className="relative flex min-h-screen flex-col w-full">
             {children}
           </div>
         </SessionProvider>

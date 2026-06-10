@@ -99,7 +99,7 @@ export default function AIExplainerPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-160px)] gap-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex flex-col">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -109,7 +109,7 @@ export default function AIExplainerPage() {
             <Cpu className="w-4 h-4 text-secondary" />
             <span className="text-[10px] font-black uppercase tracking-widest text-secondary">Neural Engine Active</span>
           </motion.div>
-          <h1 className="text-3xl font-black text-foreground tracking-tighter flex items-center gap-3">
+          <h1 className="text-2xl md:text-3xl font-black text-foreground tracking-tighter flex items-center gap-3">
             Dental <span className="text-secondary">Explainer</span>
           </h1>
         </div>

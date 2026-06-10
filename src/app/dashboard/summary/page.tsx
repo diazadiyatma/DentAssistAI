@@ -173,7 +173,7 @@ try {
             <BrainCircuit className="w-3.5 h-3.5 text-primary" />
             <span className="text-[10px] font-black uppercase tracking-widest text-primary">Contextual Processor Active</span>
           </motion.div>
-          <h1 className="text-4xl font-black text-foreground tracking-tighter flex items-center gap-4">
+          <h1 className="text-2xl md:text-4xl font-black text-foreground tracking-tighter flex items-center gap-4">
             Smart <span className="text-primary">Summarizer</span>
           </h1>
           <p className="text-muted-foreground max-w-xl text-lg font-medium">

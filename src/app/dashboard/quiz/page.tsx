@@ -186,7 +186,7 @@ The 'correct' field must be the 0-based index of the correct option (0 to 3).`,
             <Target className="w-3.5 h-3.5 text-primary" />
             <span className="text-[10px] font-black uppercase tracking-widest text-primary">Knowledge Assessment v2.0</span>
           </motion.div>
-          <h1 className="text-4xl font-black text-foreground tracking-tighter flex items-center gap-4">
+          <h1 className="text-2xl md:text-4xl font-black text-foreground tracking-tighter flex items-center gap-4">
             AI Quiz <span className="text-primary">Generator</span>
           </h1>
           <p className="text-muted-foreground max-w-xl text-lg font-medium">

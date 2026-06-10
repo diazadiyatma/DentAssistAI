@@ -50,7 +50,7 @@ export default function OralAssistantPage() {
             <Activity className="w-3.5 h-3.5 text-primary" />
             <span className="text-[10px] font-black uppercase tracking-widest text-primary">Clinical Mode Active</span>
           </motion.div>
-          <h1 className="text-4xl font-black text-foreground tracking-tighter flex items-center gap-4">
+          <h1 className="text-2xl md:text-4xl font-black text-foreground tracking-tighter flex items-center gap-4">
             Oral Health <span className="text-primary">Assistant</span>
           </h1>
           <p className="text-muted-foreground max-w-xl text-lg font-medium">

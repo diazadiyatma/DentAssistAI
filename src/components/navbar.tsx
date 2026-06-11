@@ -33,7 +33,7 @@ export function Navbar() {
           </Link>
 
         </nav>
-        <div className="flex items-center gap-4 ml-4">
+        <div className="hidden md:flex items-center gap-4 ml-4">
           <Link href="/login">
             <Button className="h-11 px-6 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-md shadow-primary/20 transition-all hover:scale-105">
               Sign In

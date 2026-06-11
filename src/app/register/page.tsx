@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -12,6 +13,11 @@ export default function RegisterPage() {
   const [data, setData] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    // Clear any existing session when visiting the register page
+    signOut({ redirect: false });
+  }, []);
 
   const registerUser = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,6 +84,7 @@ export default function RegisterPage() {
               type="text"
               required
               placeholder="Dr. John Doe"
+              autoComplete="off"
               className="w-full px-4 py-3 bg-white/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
               value={data.name}
               onChange={(e) => setData({ ...data, name: e.target.value })}
@@ -90,6 +97,7 @@ export default function RegisterPage() {
               type="email"
               required
               placeholder="doctor@example.com"
+              autoComplete="off"
               className="w-full px-4 py-3 bg-white/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
               value={data.email}
               onChange={(e) => setData({ ...data, email: e.target.value })}
@@ -103,6 +111,7 @@ export default function RegisterPage() {
               required
               minLength={8}
               placeholder="••••••••"
+              autoComplete="new-password"
               className="w-full px-4 py-3 bg-white/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
               value={data.password}
               onChange={(e) => setData({ ...data, password: e.target.value })}

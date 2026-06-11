@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -19,12 +19,22 @@ export default function LoginPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (status === "authenticated") {
+    // Clear any existing session when visiting the login page so they don't get auto-redirected to the old session
+    const clearSession = async () => {
+      await signOut({ redirect: false });
+      setIsReady(true);
+    };
+    clearSession();
+  }, []);
+
+  useEffect(() => {
+    if (isReady && status === "authenticated") {
       router.replace("/dashboard");
     }
-  }, [status, router]);
+  }, [status, isReady, router]);
 
   const loginUser = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,6 +117,7 @@ export default function LoginPage() {
               type="email"
               required
               placeholder="doctor@example.com"
+              autoComplete="off"
               className="w-full px-4 py-3 bg-white/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
               value={data.email}
               onChange={(e) =>
@@ -133,6 +144,7 @@ export default function LoginPage() {
               type="password"
               required
               placeholder="••••••••"
+              autoComplete="off"
               className="w-full px-4 py-3 bg-white/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
               value={data.password}
               onChange={(e) =>

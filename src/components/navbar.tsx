@@ -34,8 +34,8 @@ export function Navbar() {
 
         </nav>
         <div className="flex items-center gap-4 ml-4">
-          <Link href="/register">
-            <Button variant="ghost" className="text-xs font-bold uppercase tracking-widest text-primary hover:text-primary hover:bg-slate-50">
+          <Link href="/login">
+            <Button className="h-11 px-6 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-md shadow-primary/20 transition-all hover:scale-105">
               Sign In
             </Button>
           </Link>
@@ -43,8 +43,8 @@ export function Navbar() {
 
         {/* Mobile Toggle Button and Auth */}
         <div className="flex items-center gap-4 md:hidden">
-          <Link href="/register">
-            <Button variant="ghost" className="text-xs font-bold uppercase tracking-widest text-primary hover:text-primary hover:bg-slate-50">
+          <Link href="/login">
+            <Button className="h-10 px-5 bg-primary hover:bg-primary/90 text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-full shadow-md shadow-primary/20 transition-all hover:scale-105">
               Sign In
             </Button>
           </Link>

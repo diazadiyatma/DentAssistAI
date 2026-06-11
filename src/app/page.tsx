@@ -31,13 +31,6 @@ const features = [
     color: "text-primary",
     bg: "bg-primary/5",
   },
-  {
-    title: "Oral Health Assistant",
-    description: "Get general educational advice for symptoms like sensitive teeth or bleeding gums.",
-    icon: Stethoscope,
-    color: "text-emerald-600",
-    bg: "bg-emerald-50/50",
-  },
 ];
 
 function AnimatedBackground() {
@@ -93,7 +86,7 @@ export default function LandingPage() {
         <section className="relative w-full pt-32 pb-24 md:pt-48 md:pb-40 flex flex-col items-center justify-center min-h-screen">
           <AnimatedBackground />
 
-          <div className="container relative z-10 px-4 md:px-6">
+          <div className="container mx-auto relative z-10 px-4 md:px-6">
             <div className="flex flex-col items-center text-center">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -161,7 +154,7 @@ export default function LandingPage() {
 
         {/* Features Section */}
         <section id="features" className="w-full py-24 md:py-32 bg-white relative border-t border-border">
-          <div className="container relative px-4 md:px-6">
+          <div className="container mx-auto relative px-4 md:px-6">
             <div className="text-center space-y-4 mb-20">
               <h2 className="text-3xl md:text-5xl font-black text-foreground tracking-tighter uppercase italic">Supercharge Your Learning</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto text-lg font-medium tracking-wide">
@@ -169,7 +162,7 @@ export default function LandingPage() {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto justify-center">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
@@ -202,7 +195,7 @@ export default function LandingPage() {
           <div className="absolute top-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
           <div className="absolute bottom-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
           
-          <div className="container relative z-10 px-4 md:px-6 text-center">
+          <div className="container mx-auto relative z-10 px-4 md:px-6 text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}

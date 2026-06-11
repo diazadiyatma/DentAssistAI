@@ -8,15 +8,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
   Bell, 
   Shield, 
-  BrainCircuit, 
   Palette, 
   Database, 
   Save, 
   UserCircle,
   Smartphone,
-  Globe,
-  Zap,
-  CheckCircle2
+  Globe
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -85,15 +82,10 @@ export default function SettingsPage() {
 
   const tabs = [
     { id: "preferences", label: "Preferences", icon: UserCircle },
-    { id: "ai", label: "AI Configuration", icon: BrainCircuit },
     { id: "notifications", label: "Notifications", icon: Bell },
     { id: "security", label: "Security & Privacy", icon: Shield },
     { id: "appearance", label: "Interface", icon: Palette },
   ];
-
- 
-
-
 
   return (
     <div className="space-y-10 pb-20">
@@ -230,65 +222,6 @@ export default function SettingsPage() {
                             placeholder="e.g., RSU-DENTAL-001"
                             className="w-full bg-slate-50 border border-border rounded-xl py-3 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all font-medium"
                           />
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-
-            {activeTab === "ai" && (
-              <div className="space-y-6">
-                <Card className="medical-card">
-                  <CardHeader className="p-8">
-                    <CardTitle className="text-xl font-black">AI Configuration</CardTitle>
-                    <CardDescription className="font-medium">Optimize how the medical assistant processes your clinical data.</CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-8 pt-0 space-y-8">
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 bg-slate-50 border border-border rounded-2xl group hover:border-primary/20 transition-all cursor-pointer">
-                        <div className="flex items-center gap-4">
-                          <div className="p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">
-                            <Zap className="w-5 h-5 text-primary" />
-                          </div>
-                          <div>
-                            <p className="font-bold text-sm">Turbo Accuracy Mode</p>
-                            <p className="text-xs text-muted-foreground">Increases processing time but provides deeper medical cross-referencing.</p>
-                          </div>
-                        </div>
-                        <div className="h-6 w-11 bg-primary rounded-full relative">
-                          <div className="absolute right-1 top-1 h-4 w-4 bg-white rounded-full" />
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between p-4 bg-slate-50 border border-border rounded-2xl group hover:border-primary/20 transition-all cursor-pointer">
-                        <div className="flex items-center gap-4">
-                          <div className="p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">
-                            <Globe className="w-5 h-5 text-secondary" />
-                          </div>
-                          <div>
-                            <p className="font-bold text-sm">Multilingual Diagnostics</p>
-                            <p className="text-xs text-muted-foreground">Automatically translate medical terminology to patient's local language.</p>
-                          </div>
-                        </div>
-                        <div className="h-6 w-11 bg-slate-200 rounded-full relative">
-                          <div className="absolute left-1 top-1 h-4 w-4 bg-white rounded-full" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Base Model Selection</label>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="border-2 border-primary bg-primary/5 p-4 rounded-2xl relative">
-                          <CheckCircle2 className="absolute top-3 right-3 w-4 h-4 text-primary" />
-                          <p className="font-black text-sm">Gemini 1.5 Flash</p>
-                          <p className="text-[10px] font-bold text-primary/70 uppercase">High Speed • Clinical</p>
-                        </div>
-                        <div className="border-2 border-border hover:border-primary/20 transition-all p-4 rounded-2xl cursor-pointer bg-white">
-                          <p className="font-black text-sm">Gemini 1.5 Pro</p>
-                          <p className="text-[10px] font-bold text-muted-foreground uppercase">Heavy Research • Deep</p>
                         </div>
                       </div>
                     </div>

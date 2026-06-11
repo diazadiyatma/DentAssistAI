@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { PDFParse } from "pdf-parse";
 
 const client = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
@@ -23,20 +24,27 @@ export async function POST(req: Request) {
 
     const formData = await req.formData();
 
-    const textData = formData.get("text") as string | null;
+    let textData = formData.get("text") as string | null;
     const file = formData.get("file") as File | null;
 
-    // PDF sementara dinonaktifkan
     if (file) {
-      return NextResponse.json(
-        {
-          error:
-            "PDF upload is temporarily disabled. Please use Text Stream.",
-        },
-        {
-          status: 400,
-        }
-      );
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const uint8Array = new Uint8Array(arrayBuffer);
+        const pdfParser = new PDFParse({ data: uint8Array });
+        const textResult = await pdfParser.getText();
+        textData = textResult.text;
+      } catch (pdfError: any) {
+        console.error("PDF parsing error:", pdfError);
+        return NextResponse.json(
+          {
+            error: "Failed to parse PDF file: " + (pdfError?.message || ""),
+          },
+          {
+            status: 400,
+          }
+        );
+      }
     }
 
     if (!textData?.trim()) {

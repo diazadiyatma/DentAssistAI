@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { UploadCloud, FileText, CheckCircle2, FileType2, Sparkles, Zap, Clock, BrainCircuit, Share2, Download } from "lucide-react";
+import { UploadCloud, FileText, CheckCircle2, FileType2, Sparkles, Zap, Clock, BrainCircuit } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
@@ -181,14 +181,7 @@ try {
           </p>
         </div>
         
-        <div className="flex gap-3">
-           <Button variant="outline" className="bg-white border-border text-muted-foreground rounded-2xl h-12 px-6 font-bold hover:text-primary transition-all">
-             History
-           </Button>
-           <Button className="bg-primary hover:bg-primary/90 text-white rounded-2xl h-12 px-8 font-black shadow-lg shadow-primary/20 transition-all group">
-             <Zap className="w-4 h-4 mr-2 group-hover:fill-white transition-all" /> Pro Processing
-           </Button>
-        </div>
+
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -370,14 +363,7 @@ try {
                       </div>
                     </div>
 
-                    <div className="flex gap-4 pt-4">
-                       <Button variant="outline" className="flex-1 h-14 rounded-2xl border-border bg-white text-muted-foreground font-bold hover:text-primary transition-all">
-                         <Download className="w-4 h-4 mr-2" /> PDF Export
-                       </Button>
-                       <Button variant="outline" className="flex-1 h-14 rounded-2xl border-border bg-white text-muted-foreground font-bold hover:text-primary transition-all">
-                         <Share2 className="w-4 h-4 mr-2" /> Share Insight
-                       </Button>
-                    </div>
+
                   </motion.div>
                 )}
               </AnimatePresence>

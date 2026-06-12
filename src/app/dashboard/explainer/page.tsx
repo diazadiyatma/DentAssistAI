@@ -98,7 +98,7 @@ export default function AIExplainerPage() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-160px)] gap-6">
+    <div className="flex flex-col h-[calc(100vh-160px)] gap-4 sm:gap-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex flex-col">
           <motion.div
@@ -115,7 +115,7 @@ export default function AIExplainerPage() {
         </div>
         
         <div className="flex items-center gap-3">
-           <Button variant="outline" size="sm" className="bg-white border-border text-muted-foreground rounded-xl hover:bg-destructive/10 hover:text-destructive transition-all" onClick={() => setMessages([messages[0]])}>
+           <Button variant="outline" size="sm" className="bg-white border-border text-muted-foreground rounded-xl hover:bg-destructive/10 hover:text-destructive transition-all text-xs" onClick={() => setMessages([messages[0]])}>
              <Trash2 className="w-4 h-4 mr-2" /> Clear Session
            </Button>
            <div className="h-8 w-px bg-border mx-1" />
@@ -126,13 +126,13 @@ export default function AIExplainerPage() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col min-h-0 bg-white border border-border rounded-[2.5rem] relative overflow-hidden shadow-xl">
+      <div className="flex-1 flex flex-col min-h-0 bg-white border border-border rounded-3xl sm:rounded-[2.5rem] relative overflow-hidden shadow-xl">
         <div className="absolute top-0 inset-x-0 h-20 bg-gradient-to-b from-white/80 to-transparent pointer-events-none z-10" />
         
         {/* Messages Container */}
         <div 
           ref={scrollRef}
-          className="flex-1 overflow-y-auto p-8 space-y-8 no-scrollbar scroll-smooth"
+          className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-4 sm:space-y-8 no-scrollbar scroll-smooth"
         >
           <AnimatePresence initial={false}>
             {messages.map((message) => (
@@ -142,42 +142,42 @@ export default function AIExplainerPage() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.4, ease: "circOut" }}
                 className={cn(
-                  "flex items-start gap-4 max-w-4xl",
+                  "flex items-start gap-2 sm:gap-4 max-w-4xl",
                   message.role === "user" ? "ml-auto flex-row-reverse text-right" : "mr-auto"
                 )}
               >
                 <div className={cn(
-                  "h-10 w-10 shrink-0 rounded-2xl flex items-center justify-center border transition-all duration-500",
+                  "h-8 w-8 sm:h-10 sm:w-10 shrink-0 rounded-xl sm:rounded-2xl flex items-center justify-center border transition-all duration-500",
                   message.role === "ai" 
                     ? "bg-secondary/10 border-secondary/20 text-secondary" 
                     : "bg-slate-50 border-border text-foreground"
                 )}>
-                  {message.role === "ai" ? <Bot className="h-6 w-6" /> : <User className="h-6 w-6" />}
+                  {message.role === "ai" ? <Bot className="h-5 w-5 sm:h-6 sm:w-6" /> : <User className="h-5 w-5 sm:h-6 sm:w-6" />}
                 </div>
                 
                 <div className="flex flex-col gap-1">
                   <div
-  className={cn(
-    "px-6 py-4 rounded-[1.5rem] text-sm leading-relaxed relative overflow-hidden",
-    message.role === "ai"
-      ? "bg-slate-50 text-foreground border border-border"
-      : "bg-primary text-white shadow-lg shadow-primary/20"
-  )}
->
-  {message.role === "ai" && (
-    <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-      <Sparkles className="w-12 h-12" />
-    </div>
-  )}
+                    className={cn(
+                      "px-4 py-3 sm:px-6 sm:py-4 rounded-2xl sm:rounded-[1.5rem] text-xs sm:text-sm leading-relaxed relative overflow-hidden",
+                      message.role === "ai"
+                        ? "bg-slate-50 text-foreground border border-border"
+                        : "bg-primary text-white shadow-lg shadow-primary/20"
+                    )}
+                  >
+                    {message.role === "ai" && (
+                      <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+                        <Sparkles className="w-12 h-12" />
+                      </div>
+                    )}
 
-  {message.role === "ai" ? (
-    <ReactMarkdown>
-      {message.content}
-    </ReactMarkdown>
-  ) : (
-    message.content
-  )}
-</div>
+                    {message.role === "ai" ? (
+                      <ReactMarkdown>
+                        {message.content}
+                      </ReactMarkdown>
+                    ) : (
+                      message.content
+                    )}
+                  </div>
                   <span className="text-[10px] font-mono text-muted-foreground px-2">
                     {mounted ? message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
                   </span>
@@ -190,23 +190,23 @@ export default function AIExplainerPage() {
             <motion.div 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-start gap-4"
+              className="flex items-start gap-2 sm:gap-4"
             >
-              <div className="h-10 w-10 rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center animate-pulse">
-                <BrainCircuit className="h-6 w-6 text-secondary" />
+              <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl sm:rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center animate-pulse">
+                <BrainCircuit className="h-5 w-5 sm:h-6 sm:w-6 text-secondary" />
               </div>
-              <div className="bg-slate-50 border border-border px-6 py-4 rounded-[1.5rem] flex items-center gap-2">
+              <div className="bg-slate-50 border border-border px-4 py-3 sm:px-6 sm:py-4 rounded-2xl sm:rounded-[1.5rem] flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce [animation-delay:-0.3s]" />
                 <div className="w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce [animation-delay:-0.15s]" />
                 <div className="w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce" />
-                <span className="text-xs font-black text-muted-foreground ml-2 uppercase tracking-widest">Neural Processing</span>
+                <span className="text-[10px] sm:text-xs font-black text-muted-foreground ml-2 uppercase tracking-widest">Neural Processing</span>
               </div>
             </motion.div>
           )}
         </div>
 
         {/* Input Area */}
-        <div className="p-6 bg-slate-50 border-t border-border relative">
+        <div className="p-4 sm:p-6 bg-slate-50 border-t border-border relative">
           <div className="max-w-4xl mx-auto relative flex items-end gap-3">
              <div className="flex-1 relative group">
                 <Textarea
@@ -219,27 +219,24 @@ export default function AIExplainerPage() {
                     }
                   }}
                   placeholder="Inquire about endodontic procedures, pharmacology, or clinical data..."
-                  className="min-h-[60px] max-h-[200px] w-full bg-white border-border rounded-2xl px-6 py-4 pr-16 text-foreground placeholder:text-muted-foreground focus-visible:ring-primary/50 focus-visible:bg-white resize-none transition-all no-scrollbar"
+                  className="min-h-[48px] sm:min-h-[60px] max-h-[150px] sm:max-h-[200px] w-full bg-white border-border rounded-xl sm:rounded-2xl px-4 py-3 sm:px-6 sm:py-4 pr-12 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-primary/50 focus-visible:bg-white resize-none transition-all no-scrollbar"
                 />
-                <div className="absolute right-4 bottom-4 flex gap-2">
-                   <div className="text-[10px] font-mono text-muted-foreground self-center hidden sm:block">Shift + Enter for new line</div>
-                </div>
              </div>
              <Button 
                onClick={handleSend}
                disabled={!input.trim() || isLoading}
-               className="h-[60px] w-[60px] rounded-2xl bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 transition-all active:scale-95 group shrink-0"
+               className="h-12 w-12 sm:h-[60px] sm:w-[60px] rounded-xl sm:rounded-2xl bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 transition-all active:scale-95 group shrink-0 flex items-center justify-center"
              >
-               <Send className={cn("h-6 w-6 transition-transform", !input.trim() ? "" : "group-hover:translate-x-1 group-hover:-translate-y-1")} />
+               <Send className={cn("h-5 w-5 sm:h-6 sm:w-6 transition-transform", !input.trim() ? "" : "group-hover:translate-x-1 group-hover:-translate-y-1")} />
              </Button>
           </div>
           
-          <div className="flex justify-center gap-4 mt-4">
+          <div className="flex overflow-x-auto whitespace-nowrap gap-3 sm:gap-4 mt-3 sm:mt-4 justify-start sm:justify-center py-1 no-scrollbar">
              {['Anatomy', 'Pathology', 'Radiology', 'Surgery'].map(topic => (
                <button 
                  key={topic}
                  onClick={() => setInput(`Explain the ${topic.toLowerCase()} aspects of...`)}
-                 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+                 className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors shrink-0"
                >
                  #{topic}
                </button>

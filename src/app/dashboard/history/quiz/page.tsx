@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { HelpCircle, Clock, GraduationCap, ChevronDown, ChevronUp, Loader2, CheckCircle, XCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
 
 interface QuizQuestion {
   question: string;
@@ -20,20 +21,33 @@ interface QuizRecord {
   createdAt: string;
 }
 
-export default function QuizHistoryPage() {
+function QuizHistoryContent() {
   const [history, setHistory] = useState<QuizRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     fetch("/api/history/quiz")
       .then((r) => r.json())
       .then((data) => {
-        if (data.success) setHistory(data.history);
+        if (data.success) {
+          setHistory(data.history);
+          const targetId = searchParams.get("id");
+          if (targetId) {
+            setExpanded(targetId);
+            setTimeout(() => {
+              const element = document.getElementById(targetId);
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
+              }
+            }, 100);
+          }
+        }
       })
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, []);
+  }, [searchParams]);
 
   const toggle = (id: string) => setExpanded((prev) => (prev === id ? null : id));
 
@@ -110,6 +124,7 @@ export default function QuizHistoryPage() {
             return (
               <motion.div
                 key={record.id}
+                id={record.id}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.04 * i }}
@@ -239,3 +254,16 @@ export default function QuizHistoryPage() {
     </div>
   );
 }
+
+export default function QuizHistoryPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center py-24">
+        <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+      </div>
+    }>
+      <QuizHistoryContent />
+    </Suspense>
+  );
+}
+

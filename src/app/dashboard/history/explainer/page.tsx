@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { MessageSquare, Clock, BookOpen, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
+import { useSearchParams } from "next/navigation";
 
 interface ExplainerRecord {
   id: string;
@@ -14,20 +15,33 @@ interface ExplainerRecord {
   createdAt: string;
 }
 
-export default function ExplainerHistoryPage() {
+function ExplainerHistoryContent() {
   const [history, setHistory] = useState<ExplainerRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     fetch("/api/history/explainer")
       .then((r) => r.json())
       .then((data) => {
-        if (data.success) setHistory(data.history);
+        if (data.success) {
+          setHistory(data.history);
+          const targetId = searchParams.get("id");
+          if (targetId) {
+            setExpanded(targetId);
+            setTimeout(() => {
+              const element = document.getElementById(targetId);
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
+              }
+            }, 100);
+          }
+        }
       })
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, []);
+  }, [searchParams]);
 
   const toggle = (id: string) => setExpanded((prev) => (prev === id ? null : id));
 
@@ -97,6 +111,7 @@ export default function ExplainerHistoryPage() {
             return (
               <motion.div
                 key={record.id}
+                id={record.id}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.04 * i }}
@@ -176,3 +191,16 @@ export default function ExplainerHistoryPage() {
     </div>
   );
 }
+
+export default function ExplainerHistoryPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center py-24">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    }>
+      <ExplainerHistoryContent />
+    </Suspense>
+  );
+}
+

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { FileText, Clock, ScrollText, ChevronDown, ChevronUp, Loader2, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
 
 interface SummaryRecord {
   id: string;
@@ -27,20 +28,33 @@ function parseSummary(raw: string): ParsedSummary {
   }
 }
 
-export default function SummaryHistoryPage() {
+function SummaryHistoryContent() {
   const [history, setHistory] = useState<SummaryRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     fetch("/api/history/summary")
       .then((r) => r.json())
       .then((data) => {
-        if (data.success) setHistory(data.history);
+        if (data.success) {
+          setHistory(data.history);
+          const targetId = searchParams.get("id");
+          if (targetId) {
+            setExpanded(targetId);
+            setTimeout(() => {
+              const element = document.getElementById(targetId);
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
+              }
+            }, 100);
+          }
+        }
       })
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, []);
+  }, [searchParams]);
 
   const toggle = (id: string) => setExpanded((prev) => (prev === id ? null : id));
 
@@ -113,6 +127,7 @@ export default function SummaryHistoryPage() {
             return (
               <motion.div
                 key={record.id}
+                id={record.id}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.04 * i }}
@@ -217,3 +232,16 @@ export default function SummaryHistoryPage() {
     </div>
   );
 }
+
+export default function SummaryHistoryPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center py-24">
+        <Loader2 className="w-8 h-8 animate-spin text-secondary" />
+      </div>
+    }>
+      <SummaryHistoryContent />
+    </Suspense>
+  );
+}
+

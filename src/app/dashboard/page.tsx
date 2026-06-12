@@ -159,7 +159,7 @@ export default function DashboardOverview() {
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl font-black text-foreground tracking-tighter"
+            className="text-2xl sm:text-3xl font-black text-foreground tracking-tighter"
           >
             Clinical <span className="text-primary">Overview</span>
           </motion.h1>
@@ -167,7 +167,7 @@ export default function DashboardOverview() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-muted-foreground mt-3 text-lg font-medium"
+            className="text-muted-foreground mt-2 text-sm sm:text-base font-medium"
           >
             Analytical insights for <span className="text-foreground">{displayName}</span>
           </motion.p>
@@ -180,7 +180,7 @@ export default function DashboardOverview() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 md:grid-cols-4 gap-6"
+        className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
       >
         {stats.map((stat, i) => (
           <motion.div
@@ -191,10 +191,10 @@ export default function DashboardOverview() {
           >
             <Card className="medical-card relative overflow-hidden h-full group-hover:border-primary/20 transition-all duration-300">
               <div className={cn("absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500", stat.gradient)} />
-              <CardContent className="p-6 relative z-10">
-                <div className="flex items-center justify-between mb-6">
-                  <div className={cn("p-3 rounded-2xl bg-slate-50 border border-border transition-colors group-hover:bg-white", stat.color)}>
-                    <stat.icon className="w-6 h-6" />
+              <CardContent className="p-4 sm:p-6 relative z-10">
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <div className={cn("p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-50 border border-border transition-colors group-hover:bg-white", stat.color)}>
+                    <stat.icon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                   {stat.change && (
                     <div className="flex flex-col items-end">
@@ -206,8 +206,8 @@ export default function DashboardOverview() {
                   )}
                 </div>
                 <div>
-                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-1">{stat.name}</p>
-                  <p className="text-3xl font-black text-foreground tracking-tighter">{stat.value}</p>
+                  <p className="text-[9px] sm:text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-1">{stat.name}</p>
+                  <p className="text-2xl sm:text-3xl font-black text-foreground tracking-tighter">{stat.value}</p>
                 </div>
               </CardContent>
             </Card>

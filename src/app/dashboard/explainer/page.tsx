@@ -132,7 +132,7 @@ export default function AIExplainerPage() {
         {/* Messages Container */}
         <div 
           ref={scrollRef}
-          className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-4 sm:space-y-8 no-scrollbar scroll-smooth"
+          className="flex-1 overflow-y-auto pt-16 pb-4 px-4 sm:pt-20 sm:pb-8 sm:px-8 space-y-4 sm:space-y-8 no-scrollbar scroll-smooth"
         >
           <AnimatePresence initial={false}>
             {messages.map((message) => (

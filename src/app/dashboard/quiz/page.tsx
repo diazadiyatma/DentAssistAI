@@ -175,9 +175,9 @@ The 'correct' field must be the 0-based index of the correct option (0 to 3).`,
   };
 
   return (
-    <div className="space-y-12 pb-20">
+    <div className="space-y-8 pb-20">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-        <div className="space-y-4">
+        <div className="space-y-3">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -186,10 +186,10 @@ The 'correct' field must be the 0-based index of the correct option (0 to 3).`,
             <Target className="w-3.5 h-3.5 text-primary" />
             <span className="text-[10px] font-black uppercase tracking-widest text-primary">Knowledge Assessment v2.0</span>
           </motion.div>
-          <h1 className="text-2xl md:text-4xl font-black text-foreground tracking-tighter flex items-center gap-4">
+          <h1 className="text-2xl md:text-3xl font-black text-foreground tracking-tighter flex items-center gap-3">
             AI Quiz <span className="text-primary">Generator</span>
           </h1>
-          <p className="text-muted-foreground max-w-xl text-lg font-medium">
+          <p className="text-muted-foreground max-w-xl text-sm sm:text-base font-medium">
             Test your clinical mastery with adaptive, AI-generated questions tailored to your specialization.
           </p>
         </div>
@@ -203,55 +203,55 @@ The 'correct' field must be the 0-based index of the correct option (0 to 3).`,
         >
           <Card className="max-w-3xl medical-card shadow-xl relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-full h-1 bg-medical-gradient" />
-            <CardHeader className="p-10 pb-6">
-              <CardTitle className="text-foreground text-2xl font-black">Configure Assessment</CardTitle>
-              <CardDescription className="text-muted-foreground font-medium">Define your topic and difficulty to initialize the AI engine.</CardDescription>
+            <CardHeader className="p-6 sm:p-8">
+              <CardTitle className="text-foreground text-lg sm:text-xl font-black">Configure Assessment</CardTitle>
+              <CardDescription className="text-muted-foreground font-medium text-xs">Define your topic and difficulty to initialize the AI engine.</CardDescription>
             </CardHeader>
-            <CardContent className="p-10 pt-0 space-y-10">
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] ml-1">Dental Specialization / Topic</label>
+            <CardContent className="p-6 pt-0 sm:p-8 sm:pt-0 space-y-6">
+              <div className="space-y-2.5">
+                <label className="text-[9px] sm:text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] ml-1">Dental Specialization / Topic</label>
                 <div className="relative group">
-                  <Brain className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                  <Brain className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <Input 
                     placeholder="e.g., Clinical Endodontics, Oral Histology, Pharmacology..." 
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
-                    className="bg-slate-50 border-border text-foreground h-16 pl-12 rounded-2xl focus-visible:ring-primary/50 transition-all text-lg font-medium placeholder:text-muted-foreground/40"
+                    className="bg-slate-50 border-border text-foreground h-12 pl-12 rounded-xl focus-visible:ring-primary/50 transition-all text-xs sm:text-sm font-medium placeholder:text-muted-foreground/40"
                   />
                 </div>
               </div>
               
-              <div className="space-y-4">
-                <label className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] ml-1">Complexity Matrix</label>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-3">
+                <label className="text-[9px] sm:text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] ml-1">Complexity Matrix</label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {["Beginner", "Intermediate", "Advanced"].map((level) => (
                     <button
                       key={level}
                       onClick={() => setDifficulty(level)}
                       className={cn(
-                        "h-16 rounded-2xl text-sm font-black uppercase tracking-widest transition-all border flex items-center justify-center gap-3 active:scale-95",
+                        "h-12 rounded-xl text-xs font-black uppercase tracking-widest transition-all border flex items-center justify-center gap-2 active:scale-95",
                         difficulty === level 
                           ? "bg-primary/5 border-primary/20 text-primary shadow-sm" 
                           : "bg-slate-50 border-border text-muted-foreground hover:bg-white hover:text-foreground"
                       )}
                     >
-                      <Zap className={cn("w-4 h-4", difficulty === level ? "fill-primary" : "fill-transparent")} />
+                      <Zap className={cn("w-3.5 h-3.5", difficulty === level ? "fill-primary" : "fill-transparent")} />
                       {level}
                     </button>
                   ))}
                 </div>
               </div>
             </CardContent>
-            <CardFooter className="p-10 pt-0">
+            <CardFooter className="p-6 pt-0 sm:p-8 sm:pt-0">
               <Button 
                 onClick={startQuiz}
                 disabled={!topic || isLoading}
-                className="w-full h-16 bg-primary hover:bg-primary/90 text-white font-black text-xl rounded-2xl shadow-lg shadow-primary/20 transition-all group"
+                className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-black text-sm rounded-xl shadow-lg shadow-primary/20 transition-all group"
               >
                 {isLoading ? (
-                  <Loader2 className="w-6 h-6 animate-spin mr-3" />
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
                 ) : (
-                  <Play className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
+                  <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
                 )}
                 {isLoading ? "Generating Matrix..." : "Initialize AI Assessment"}
               </Button>
@@ -260,39 +260,39 @@ The 'correct' field must be the 0-based index of the correct option (0 to 3).`,
         </motion.div>
       ) : isFinished ? (
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
-          <Card className="max-w-xl mx-auto medical-card text-center p-12 shadow-xl relative overflow-hidden">
+          <Card className="max-w-xl mx-auto medical-card text-center p-6 sm:p-8 shadow-xl relative overflow-hidden">
             <div className="absolute top-0 inset-x-0 h-1 bg-medical-gradient animate-pulse" />
-            <CardContent className="space-y-10">
-              <div className="w-32 h-32 mx-auto bg-primary/5 border border-primary/10 rounded-[2.5rem] flex items-center justify-center shadow-lg shadow-primary/5">
-                <Trophy className="w-16 h-16 text-primary" />
+            <CardContent className="space-y-6 sm:space-y-8">
+              <div className="w-20 h-20 mx-auto bg-primary/5 border border-primary/10 rounded-2xl flex items-center justify-center shadow-lg shadow-primary/5">
+                <Trophy className="w-10 h-10 text-primary" />
               </div>
-              <div className="space-y-2">
-                <h2 className="text-4xl font-black text-foreground tracking-tighter uppercase">Assessment Complete</h2>
-                <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px]">Topic: {topic} • Level: {difficulty}</p>
+              <div className="space-y-1">
+                <h2 className="text-2xl sm:text-3xl font-black text-foreground tracking-tighter uppercase">Assessment Complete</h2>
+                <p className="text-muted-foreground font-bold uppercase tracking-widest text-[9px] sm:text-[10px]">Topic: {topic} • Level: {difficulty}</p>
               </div>
               <div className="relative inline-block">
-                <div className="text-8xl font-black text-primary leading-none">
-                   {score}<span className="text-4xl text-slate-300">/{quizQuestions.length}</span>
+                <div className="text-5xl sm:text-6xl font-black text-primary leading-none">
+                   {score}<span className="text-2xl text-slate-300">/{quizQuestions.length}</span>
                 </div>
-                <div className="absolute -top-6 -right-6">
-                   <Sparkles className="w-8 h-8 text-primary animate-bounce" />
+                <div className="absolute -top-4 -right-4">
+                   <Sparkles className="w-6 h-6 text-primary animate-bounce" />
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
-                 <div className="p-6 rounded-3xl bg-slate-50 border border-border">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">Accuracy</p>
-                    <p className="text-2xl font-black text-foreground">{Math.round((score/quizQuestions.length)*100)}%</p>
+              <div className="grid grid-cols-2 gap-3">
+                 <div className="p-4 rounded-2xl bg-slate-50 border border-border">
+                    <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-0.5">Accuracy</p>
+                    <p className="text-lg sm:text-xl font-black text-foreground">{Math.round((score/quizQuestions.length)*100)}%</p>
                  </div>
-                 <div className="p-6 rounded-3xl bg-slate-50 border border-border">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">Time Taken</p>
-                    <p className="text-2xl font-black text-foreground">Analysis... </p>
+                 <div className="p-4 rounded-2xl bg-slate-50 border border-border">
+                    <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-0.5">Time Taken</p>
+                    <p className="text-lg sm:text-xl font-black text-foreground">Analysis... </p>
                  </div>
               </div>
 
               <Button 
                 onClick={() => setIsQuizActive(false)}
-                className="w-full h-16 bg-primary text-white hover:bg-primary/90 font-black text-lg rounded-2xl shadow-lg transition-all active:scale-95"
+                className="w-full h-12 bg-primary text-white hover:bg-primary/90 font-black text-sm rounded-xl shadow-lg transition-all active:scale-95"
               >
                 Exit Assessment Matrix
               </Button>
@@ -336,15 +336,15 @@ The 'correct' field must be the 0-based index of the correct option (0 to 3).`,
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <Card className="medical-card shadow-xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
-                   <HelpCircle className="w-64 h-64 text-primary" />
+                <div className="absolute top-0 right-0 p-6 opacity-5 pointer-events-none">
+                   <HelpCircle className="w-32 h-32 text-primary" />
                 </div>
-                <CardHeader className="p-12 pb-8">
-                  <CardTitle className="text-3xl md:text-4xl font-black text-foreground leading-[1.2] tracking-tight">
+                <CardHeader className="p-6 sm:p-8 pb-4 sm:pb-6">
+                  <CardTitle className="text-lg sm:text-xl md:text-2xl font-black text-foreground leading-[1.2] tracking-tight">
                     {quizQuestions[currentQuestion].question}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-12 pt-0 space-y-4">
+                <CardContent className="p-6 pt-0 sm:p-8 sm:pt-0 space-y-3">
                   {quizQuestions[currentQuestion].options.map((opt, idx) => {
                     const isCorrect = idx === quizQuestions[currentQuestion].correct;
                     const isSelected = selectedAnswer === idx;
@@ -363,33 +363,33 @@ The 'correct' field must be the 0-based index of the correct option (0 to 3).`,
                         onClick={() => handleAnswer(idx)}
                         disabled={isAnswerChecked}
                         className={cn(
-                          "w-full text-left p-6 rounded-[1.5rem] border transition-all flex justify-between items-center group/opt active:scale-[0.99]",
+                          "w-full text-left p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border transition-all flex justify-between items-center group/opt active:scale-[0.99]",
                           btnClass
                         )}
                       >
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                            <div className={cn(
-                             "h-10 w-10 rounded-xl flex items-center justify-center font-black transition-all",
+                             "h-8 w-8 sm:h-9 sm:w-9 rounded-lg flex items-center justify-center font-black transition-all text-xs sm:text-sm",
                              isAnswerChecked && isCorrect ? "bg-emerald-500 text-white" : "bg-slate-50 border border-border group-hover/opt:border-primary/20"
                            )}>
                               {String.fromCharCode(65 + idx)}
                            </div>
-                           <span className="text-xl font-bold">{opt}</span>
+                           <span className="text-xs sm:text-sm font-bold">{opt}</span>
                         </div>
-                        {isAnswerChecked && isCorrect && <CheckCircle className="w-6 h-6 text-emerald-500" />}
-                        {isAnswerChecked && isSelected && !isCorrect && <XCircle className="w-6 h-6 text-rose-500" />}
+                        {isAnswerChecked && isCorrect && <CheckCircle className="w-5 h-5 text-emerald-500" />}
+                        {isAnswerChecked && isSelected && !isCorrect && <XCircle className="w-5 h-5 text-rose-500" />}
                       </button>
                     );
                   })}
                 </CardContent>
-                <CardFooter className="p-12 pt-0 justify-end border-t border-border bg-slate-50/50">
+                <CardFooter className="p-6 pt-0 sm:p-8 sm:pt-0 justify-end border-t border-border bg-slate-50/50 h-16 sm:h-20 flex items-center">
                   {isAnswerChecked && (
                     <Button 
                       onClick={nextQuestion}
-                      className="bg-primary hover:bg-primary/90 text-white font-black px-10 h-14 rounded-2xl shadow-lg transition-all active:scale-95 text-lg group"
+                      className="bg-primary hover:bg-primary/90 text-white font-black px-6 h-10 sm:h-12 rounded-xl shadow-lg transition-all active:scale-95 text-xs sm:text-sm group"
                     >
                       {currentQuestion < quizQuestions.length - 1 ? "Next Analysis Vector" : "Finalize Results"}
-                      <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      <ChevronRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   )}
                 </CardFooter>

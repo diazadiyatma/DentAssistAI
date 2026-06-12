@@ -88,7 +88,7 @@ export default function SettingsPage() {
   ];
 
   return (
-    <div className="space-y-10 pb-20">
+    <div className="space-y-8 pb-20">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
@@ -103,7 +103,7 @@ export default function SettingsPage() {
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl font-black text-foreground tracking-tighter"
+            className="text-2xl sm:text-3xl font-black text-foreground tracking-tighter"
           >
             Settings <span className="text-primary">& Control</span>
           </motion.h1>
@@ -111,7 +111,7 @@ export default function SettingsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-muted-foreground mt-3 text-lg font-medium"
+            className="text-muted-foreground mt-2 text-sm sm:text-base font-medium"
           >
             Manage your medical assistant configurations and account data.
           </motion.p>
@@ -125,34 +125,34 @@ export default function SettingsPage() {
           <Button 
             onClick={handleSave}
             disabled={isSaving}
-            className="bg-primary hover:bg-primary/90 text-white rounded-2xl h-12 px-8 font-black transition-all shadow-lg shadow-primary/20 flex items-center gap-2 min-w-[160px]"
+            className="bg-primary hover:bg-primary/90 text-white rounded-xl h-10 px-6 text-sm font-black transition-all shadow-lg shadow-primary/20 flex items-center gap-2 min-w-[140px]"
           >
             {isSaving ? (
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
               >
-                <Database className="w-5 h-5" />
+                <Database className="w-4 h-4" />
               </motion.div>
             ) : (
-              <Save className="w-5 h-5" />
+              <Save className="w-4 h-4" />
             )}
             {isSaving ? "Syncing..." : "Save Changes"}
           </Button>
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Navigation Sidebar */}
-        <div className="lg:col-span-1 space-y-2">
+        <div className="lg:col-span-1 space-y-1.5">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "w-full flex items-center gap-3 px-6 py-4 rounded-2xl transition-all duration-300 font-bold text-sm text-left relative overflow-hidden",
+                "w-full flex items-center gap-2.5 px-4 py-3 rounded-xl transition-all duration-300 font-bold text-xs sm:text-sm text-left relative overflow-hidden",
                 activeTab === tab.id 
-                  ? "bg-white text-primary shadow-md border border-border" 
+                  ? "bg-white text-primary shadow-sm border border-border" 
                   : "text-muted-foreground hover:text-foreground hover:bg-slate-50"
               )}
             >
@@ -162,7 +162,7 @@ export default function SettingsPage() {
                   className="absolute left-0 top-0 bottom-0 w-1 bg-primary"
                 />
               )}
-              <tab.icon className={cn("w-5 h-5", activeTab === tab.id ? "text-primary" : "text-muted-foreground")} />
+              <tab.icon className={cn("w-4 h-4", activeTab === tab.id ? "text-primary" : "text-muted-foreground")} />
               {tab.label}
             </button>
           ))}
@@ -179,17 +179,17 @@ export default function SettingsPage() {
             {activeTab === "preferences" && (
               <div className="space-y-6">
                 <Card className="medical-card overflow-hidden">
-                  <CardHeader className="border-b border-border bg-slate-50/50 p-8">
-                    <CardTitle className="text-xl font-black">Clinical Preferences</CardTitle>
-                    <CardDescription className="font-medium mt-1">
+                  <CardHeader className="border-b border-border bg-slate-50/50 p-6">
+                    <CardTitle className="text-lg font-black">Clinical Preferences</CardTitle>
+                    <CardDescription className="font-medium mt-1 text-xs">
                       Customize your clinical role and workspace details. To update your name or email, visit your{" "}
                       <a href="/dashboard/profile" className="text-primary font-bold hover:underline">Profile page</a>.
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="p-8 space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <CardContent className="p-6 space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Clinical Title</label>
+                        <label className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Clinical Title</label>
                         <div className="relative">
                           <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                           <select
@@ -198,7 +198,7 @@ export default function SettingsPage() {
                               setClinicalTitle(e.target.value);
                               triggerAutoSave();
                             }}
-                            className="w-full bg-slate-50 border border-border rounded-xl py-3 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all font-medium appearance-none"
+                            className="w-full bg-slate-50 border border-border rounded-xl py-2 px-4 pl-12 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all font-medium appearance-none"
                           >
                             <option>Chief Resident</option>
                             <option>General Dentist</option>
@@ -209,7 +209,7 @@ export default function SettingsPage() {
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Hospital / Clinic ID</label>
+                        <label className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Hospital / Clinic ID</label>
                         <div className="relative">
                           <Smartphone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                           <input
@@ -220,7 +220,7 @@ export default function SettingsPage() {
                               triggerAutoSave();
                             }}
                             placeholder="e.g., RSU-DENTAL-001"
-                            className="w-full bg-slate-50 border border-border rounded-xl py-3 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all font-medium"
+                            className="w-full bg-slate-50 border border-border rounded-xl py-2 px-4 pl-12 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all font-medium"
                           />
                         </div>
                       </div>
@@ -232,13 +232,13 @@ export default function SettingsPage() {
 
             {(activeTab === "notifications" || activeTab === "security" || activeTab === "appearance") && (
               <Card className="medical-card">
-                <CardContent className="p-20 flex flex-col items-center justify-center text-center">
-                  <div className="h-20 w-20 bg-slate-50 border border-border rounded-3xl flex items-center justify-center mb-6 text-muted-foreground">
-                    <Database className="w-10 h-10 opacity-20" />
+                <CardContent className="p-10 sm:p-16 flex flex-col items-center justify-center text-center">
+                  <div className="h-16 w-16 bg-slate-50 border border-border rounded-2xl flex items-center justify-center mb-4 text-muted-foreground">
+                    <Database className="w-8 h-8 opacity-20" />
                   </div>
-                  <h3 className="text-xl font-black text-foreground">Feature in Calibration</h3>
-                  <p className="text-muted-foreground max-w-xs mt-2 font-medium">This module is currently being optimized for medical standards. Coming in v2.5 update.</p>
-                  <Button variant="outline" className="mt-8 rounded-xl font-bold" onClick={() => setActiveTab("profile")}>Back to Profile</Button>
+                  <h3 className="text-lg font-black text-foreground">Feature in Calibration</h3>
+                  <p className="text-muted-foreground max-w-xs mt-1.5 text-xs font-medium">This module is currently being optimized for medical standards. Coming in v2.5 update.</p>
+                  <Button variant="outline" className="mt-6 rounded-lg font-bold text-xs h-9" onClick={() => setActiveTab("profile")}>Back to Profile</Button>
                 </CardContent>
               </Card>
             )}

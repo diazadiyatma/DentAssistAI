@@ -93,23 +93,23 @@ export default function ProfilePage() {
     : [];
 
   return (
-    <div className="space-y-10 pb-20">
+    <div className="space-y-4 pb-12">
       {/* Header */}
       <div>
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-3 mb-2"
+          className="flex items-center gap-2 mb-1.5"
         >
-          <div className="h-2 w-2 rounded-full bg-primary shadow-lg shadow-primary/20" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="h-1.5 w-1.5 rounded-full bg-primary shadow-lg shadow-primary/20" />
+          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground">
             Account Overview
           </span>
         </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-black text-foreground tracking-tighter"
+          className="text-xl sm:text-2xl font-black text-foreground tracking-tight"
         >
           User <span className="text-primary">Profile</span>
         </motion.h1>
@@ -117,92 +117,92 @@ export default function ProfilePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-muted-foreground mt-3 text-lg font-medium"
+          className="text-muted-foreground mt-1.5 text-xs sm:text-sm font-medium"
         >
           Your account information and AI usage statistics.
         </motion.p>
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-24">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <div className="flex items-center justify-center py-16">
+          <Loader2 className="w-6 h-6 animate-spin text-primary" />
         </div>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-4">
           {/* Profile Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Card className="medical-card overflow-hidden shadow-xl">
+            <Card className="medical-card overflow-hidden shadow-md">
               {/* Top gradient bar */}
               <div className="h-1.5 w-full bg-medical-gradient" />
 
-              <CardContent className="p-8">
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-4 sm:gap-6">
                   {/* Avatar */}
                   <div className="shrink-0">
-                    <Avatar className="h-28 w-28 border-4 border-white shadow-2xl shadow-primary/10">
+                    <Avatar className="h-16 w-16 sm:h-20 sm:w-20 border-4 border-white shadow-2xl shadow-primary/10">
                       <AvatarImage src="" />
-                      <AvatarFallback className="bg-medical-gradient text-white text-3xl font-black">
+                      <AvatarFallback className="bg-medical-gradient text-white text-xl font-black">
                         {initials}
                       </AvatarFallback>
                     </Avatar>
                   </div>
 
                   {/* Info */}
-                  <div className="flex-1 space-y-5 text-center md:text-left">
+                  <div className="flex-1 space-y-3 text-center md:text-left">
                     <div>
-                      <h2 className="text-3xl font-black text-foreground tracking-tight">
+                      <h2 className="text-lg sm:text-xl font-black text-foreground tracking-tight">
                         {displayName}
                       </h2>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-primary mt-1">
+                      <p className="text-[10px] font-black uppercase tracking-widest text-primary mt-0.5">
                         DentAssist AI Member
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {/* Name */}
-                      <div className="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-border">
-                        <div className="p-2 rounded-xl bg-white border border-border shadow-sm text-primary shrink-0">
-                          <User className="w-4 h-4" />
+                      <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-border">
+                        <div className="p-2 rounded-lg bg-white border border-border shadow-sm text-primary shrink-0">
+                          <User className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
                           <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">
                             Full Name
                           </p>
-                          <p className="text-sm font-bold text-foreground truncate">
+                          <p className="text-xs sm:text-sm font-bold text-foreground truncate">
                             {displayName}
                           </p>
                         </div>
                       </div>
 
                       {/* Email */}
-                      <div className="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-border">
-                        <div className="p-2 rounded-xl bg-white border border-border shadow-sm text-primary shrink-0">
-                          <Mail className="w-4 h-4" />
+                      <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-border">
+                        <div className="p-2 rounded-lg bg-white border border-border shadow-sm text-primary shrink-0">
+                          <Mail className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
                           <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">
                             Email
                           </p>
-                          <p className="text-sm font-bold text-foreground truncate">
+                          <p className="text-xs sm:text-sm font-bold text-foreground truncate">
                             {profile?.email ?? "—"}
                           </p>
                         </div>
                       </div>
 
                       {/* Member Since */}
-                      <div className="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-border">
-                        <div className="p-2 rounded-xl bg-white border border-border shadow-sm text-primary shrink-0">
-                          <CalendarDays className="w-4 h-4" />
+                      <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-border">
+                        <div className="p-2 rounded-lg bg-white border border-border shadow-sm text-primary shrink-0">
+                          <CalendarDays className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
                           <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">
                             Member Since
                           </p>
-                          <p className="text-sm font-bold text-foreground truncate">
+                          <p className="text-xs sm:text-sm font-bold text-foreground truncate">
                             {memberSince}
                           </p>
                         </div>
@@ -220,15 +220,15 @@ export default function ProfilePage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="flex items-center gap-3 mb-5"
+              className="flex items-center gap-2 mb-4"
             >
-              <Activity className="w-4 h-4 text-muted-foreground" />
+              <Activity className="w-3.5 h-3.5 text-muted-foreground" />
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
                 AI Usage Statistics
               </span>
             </motion.div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {stats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -239,14 +239,14 @@ export default function ProfilePage() {
                 >
                   <Card className={cn("medical-card relative overflow-hidden group hover:border-primary/20 transition-all duration-300")}>
                     <div className={cn("absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500", stat.gradient)} />
-                    <CardContent className="p-6 relative z-10">
-                      <div className={cn("inline-flex p-3 rounded-2xl border mb-4 transition-colors group-hover:bg-white", stat.bg)}>
-                        <stat.icon className={cn("w-6 h-6", stat.color)} />
+                    <CardContent className="p-4 sm:p-6 relative z-10">
+                      <div className={cn("inline-flex p-2 sm:p-3 rounded-xl sm:rounded-2xl border mb-3 transition-colors group-hover:bg-white", stat.bg)}>
+                        <stat.icon className={cn("w-5 h-5 sm:w-6 sm:h-6", stat.color)} />
                       </div>
-                      <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.15em] mb-1">
+                      <p className="text-[9px] sm:text-[10px] font-black text-muted-foreground uppercase tracking-[0.15em] mb-1">
                         {stat.label}
                       </p>
-                      <p className="text-4xl font-black text-foreground tracking-tighter">
+                      <p className="text-2xl sm:text-3xl font-black text-foreground tracking-tighter">
                         {stat.value}
                       </p>
                     </CardContent>

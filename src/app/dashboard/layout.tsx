@@ -280,7 +280,7 @@ export default function DashboardLayout({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="max-w-7xl mx-auto"
+              className="max-w-7xl w-full"
             >
               {children}
             </motion.div>

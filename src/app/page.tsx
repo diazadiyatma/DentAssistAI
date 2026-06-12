@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Sparkles, BrainCircuit, FileText, HelpCircle, Stethoscope, ArrowRight, PlayCircle } from "lucide-react";
+import { Sparkles, BrainCircuit, FileText, HelpCircle, Stethoscope, ArrowRight, PlayCircle, X } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const features = [
@@ -77,6 +77,8 @@ function AnimatedBackground() {
 }
 
 export default function LandingPage() {
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+
   return (
     <div className="flex min-h-screen flex-col bg-background overflow-hidden selection:bg-primary/20">
       <Navbar />
@@ -126,11 +128,14 @@ export default function LandingPage() {
                     Start Exploring <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
-                <Link href="#features">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 px-10 rounded-full border-border bg-white text-muted-foreground hover:text-primary hover:bg-slate-50 font-bold text-xs uppercase tracking-[0.2em] transition-all">
-                    <PlayCircle className="mr-2 h-4 w-4 text-muted-foreground" /> View Demo
-                  </Button>
-                </Link>
+                <Button 
+                  onClick={() => setIsVideoOpen(true)}
+                  size="lg" 
+                  variant="outline" 
+                  className="w-full sm:w-auto h-14 px-10 rounded-full border-border bg-white text-muted-foreground hover:text-primary hover:bg-slate-50 font-bold text-xs uppercase tracking-[0.2em] transition-all"
+                >
+                  <PlayCircle className="mr-2 h-4 w-4 text-muted-foreground" /> View Demo
+                </Button>
               </motion.div>
             </div>
             
@@ -217,6 +222,54 @@ export default function LandingPage() {
             </motion.div>
           </div>
         </section>
+
+        {/* Video Demo Modal */}
+        <AnimatePresence>
+          {isVideoOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setIsVideoOpen(false)}
+                className="absolute inset-0 cursor-pointer"
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                className="relative w-full max-w-4xl bg-card border border-border rounded-2xl overflow-hidden shadow-2xl z-10"
+              >
+                {/* Modal Header */}
+                <div className="flex items-center justify-between p-4 border-b border-border bg-muted/20">
+                  <span className="text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground flex items-center">
+                    <PlayCircle className="mr-2 h-4 w-4 text-primary" /> DentAssist AI Demo Video
+                  </span>
+                  <button
+                    onClick={() => setIsVideoOpen(false)}
+                    className="rounded-full p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-all active:scale-90"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+
+                {/* Video Body */}
+                <div className="relative aspect-video bg-black flex items-center justify-center">
+                  <video
+                    className="w-full h-full"
+                    controls
+                    autoPlay
+                    src="/demo.mp4"
+                    poster="/foto%20dental%20assist%20ai.jpg"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
       </main>
       
       <Footer />

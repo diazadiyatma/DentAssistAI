@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { PDFParse } from "pdf-parse";
+import pdf from "pdf-parse";
 
 const client = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
@@ -30,9 +30,8 @@ export async function POST(req: Request) {
     if (file) {
       try {
         const arrayBuffer = await file.arrayBuffer();
-        const uint8Array = new Uint8Array(arrayBuffer);
-        const pdfParser = new PDFParse({ data: uint8Array });
-        const textResult = await pdfParser.getText();
+        const buffer = Buffer.from(arrayBuffer);
+        const textResult = await pdf(buffer);
         textData = textResult.text;
       } catch (pdfError: any) {
         console.error("PDF parsing error:", pdfError);

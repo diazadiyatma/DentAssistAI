@@ -324,16 +324,16 @@ try {
                           <p className="text-[9px] font-black uppercase tracking-widest text-primary mb-0.5">Process Time</p>
                           <p className="text-base font-black text-foreground">Live</p>
                       </div>
-                      <div className="flex-1 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 relative group overflow-hidden">
+                      <div className="flex-1 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 relative group overflow-hidden">
                           <div className="absolute top-0 right-0 p-2 opacity-20">
-                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                           </div>
-                          <p className="text-[9px] font-black uppercase tracking-widest text-emerald-600 mb-0.5">Confidence</p>
+                          <p className="text-[9px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-0.5">Confidence</p>
                           <p className="text-base font-black text-foreground">99%</p>
                       </div>
                     </div>
 
-                    <div className="p-4 sm:p-5 rounded-[1.5rem] bg-slate-50 border border-border text-foreground leading-relaxed text-xs sm:text-sm relative group">
+                    <div className="p-4 sm:p-5 rounded-[1.5rem] bg-slate-50 dark:bg-slate-900/50 border border-border dark:border-slate-800 text-foreground leading-relaxed text-xs sm:text-sm relative group">
                       <div className="absolute -top-3 left-4 px-2 py-0.5 bg-primary rounded-md text-[9px] font-black uppercase tracking-widest text-white">Abstract</div>
                       <strong className="text-primary">Overview:</strong> {summary.overview}
                     </div>
@@ -350,12 +350,12 @@ try {
                              initial={{ opacity: 0, x: 20 }}
                              animate={{ opacity: 1, x: 0 }}
                              transition={{ delay: 0.2 + (idx * 0.1) }}
-                             className="flex gap-3 text-xs sm:text-sm text-foreground bg-white p-4 rounded-xl border border-border hover:border-primary/30 transition-all cursor-default group/item shadow-sm"
+                             className="flex gap-3 text-xs sm:text-sm text-foreground bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-border dark:border-slate-800 hover:border-primary/30 dark:hover:border-primary/30 transition-all cursor-default group/item shadow-sm"
                            >
-                             <div className="w-5 h-5 rounded-md bg-primary/10 flex items-center justify-center shrink-0 group-hover/item:bg-primary group-hover/item:text-white transition-all">
+                             <div className="w-5 h-5 rounded-md bg-primary/10 dark:bg-primary/25 flex items-center justify-center shrink-0 group-hover/item:bg-primary group-hover/item:text-white transition-all text-primary">
                                <span className="text-[9px] font-black">{idx + 1}</span>
                              </div>
-                             <span className="font-medium">{point}</span>
+                             <span className="font-medium text-foreground">{point}</span>
                            </motion.div>
                         ))}
                       </div>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { Activity, Menu, X } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { ThemeToggle } from "./ui/theme-toggle";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ export function Navbar() {
   console.log('Navbar session:', session);
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-border bg-white/85 backdrop-blur-md">
+    <header className="fixed top-0 z-50 w-full border-b border-border bg-white/85 dark:bg-slate-950/85 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 md:px-8">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -31,26 +32,28 @@ export function Navbar() {
           <Link href="#about" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-all flex items-center">
             About
           </Link>
-
         </nav>
+        
         <div className="hidden md:flex items-center gap-4 ml-4">
+          <ThemeToggle />
           <Link href="/login">
-            <Button className="h-11 px-6 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-md shadow-primary/20 transition-all hover:scale-105">
+            <Button className="h-11 px-6 bg-primary hover:bg-primary/90 text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-md shadow-primary/20 transition-all hover:scale-105 cursor-pointer">
               Sign In
             </Button>
           </Link>
         </div>
 
         {/* Mobile Toggle Button and Auth */}
-        <div className="flex items-center gap-4 md:hidden">
+        <div className="flex items-center gap-3 md:hidden">
+          <ThemeToggle />
           <Link href="/login">
-            <Button className="h-10 px-5 bg-primary hover:bg-primary/90 text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-full shadow-md shadow-primary/20 transition-all hover:scale-105">
+            <Button className="h-10 px-4 bg-primary hover:bg-primary/90 text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-full shadow-md shadow-primary/20 transition-all hover:scale-105 cursor-pointer">
               Sign In
             </Button>
           </Link>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex h-11 w-11 items-center justify-center rounded-lg text-muted-foreground hover:bg-slate-100 focus:outline-none"
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-muted-foreground hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none cursor-pointer"
             aria-label="Toggle Menu"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -60,7 +63,7 @@ export function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {isOpen && (
-        <div className="border-b border-border bg-white px-4 py-6 shadow-xl md:hidden animate-in fade-in slide-in-from-top duration-200">
+        <div className="border-b border-border bg-white dark:bg-slate-900 px-4 py-6 shadow-xl md:hidden animate-in fade-in slide-in-from-top duration-200">
           <nav className="flex flex-col gap-4">
             <Link
               href="#features"
@@ -82,3 +85,4 @@ export function Navbar() {
     </header>
   );
 }
+

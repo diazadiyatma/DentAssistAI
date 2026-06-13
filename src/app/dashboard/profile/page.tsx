@@ -164,8 +164,8 @@ export default function ProfilePage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {/* Name */}
-                      <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-border">
-                        <div className="p-2 rounded-lg bg-white border border-border shadow-sm text-primary shrink-0">
+                      <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-border">
+                        <div className="p-2 rounded-lg bg-white dark:bg-slate-950 border border-border shadow-sm text-primary shrink-0">
                           <User className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
@@ -179,8 +179,8 @@ export default function ProfilePage() {
                       </div>
 
                       {/* Email */}
-                      <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-border">
-                        <div className="p-2 rounded-lg bg-white border border-border shadow-sm text-primary shrink-0">
+                      <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-border">
+                        <div className="p-2 rounded-lg bg-white dark:bg-slate-950 border border-border shadow-sm text-primary shrink-0">
                           <Mail className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
@@ -194,8 +194,8 @@ export default function ProfilePage() {
                       </div>
 
                       {/* Member Since */}
-                      <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-border">
-                        <div className="p-2 rounded-lg bg-white border border-border shadow-sm text-primary shrink-0">
+                      <div className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-border">
+                        <div className="p-2 rounded-lg bg-white dark:bg-slate-950 border border-border shadow-sm text-primary shrink-0">
                           <CalendarDays className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
@@ -240,7 +240,7 @@ export default function ProfilePage() {
                   <Card className={cn("medical-card relative overflow-hidden group hover:border-primary/20 transition-all duration-300")}>
                     <div className={cn("absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500", stat.gradient)} />
                     <CardContent className="p-4 sm:p-6 relative z-10">
-                      <div className={cn("inline-flex p-2 sm:p-3 rounded-xl sm:rounded-2xl border mb-3 transition-colors group-hover:bg-white", stat.bg)}>
+                      <div className={cn("inline-flex p-2 sm:p-3 rounded-xl sm:rounded-2xl border mb-3 transition-colors group-hover:bg-white dark:group-hover:bg-slate-800", stat.bg)}>
                         <stat.icon className={cn("w-5 h-5 sm:w-6 sm:h-6", stat.color)} />
                       </div>
                       <p className="text-[9px] sm:text-[10px] font-black text-muted-foreground uppercase tracking-[0.15em] mb-1">

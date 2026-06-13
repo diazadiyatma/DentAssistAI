@@ -115,7 +115,7 @@ export default function AIExplainerPage() {
         </div>
         
         <div className="flex items-center gap-3">
-           <Button variant="outline" size="sm" className="bg-white border-border text-muted-foreground rounded-xl hover:bg-destructive/10 hover:text-destructive transition-all text-xs" onClick={() => setMessages([messages[0]])}>
+           <Button variant="outline" size="sm" className="bg-white dark:bg-slate-900 border-border text-muted-foreground rounded-xl hover:bg-destructive/10 hover:text-destructive transition-all text-xs" onClick={() => setMessages([messages[0]])}>
              <Trash2 className="w-4 h-4 mr-2" /> Clear Session
            </Button>
            <div className="h-8 w-px bg-border mx-1" />
@@ -126,8 +126,8 @@ export default function AIExplainerPage() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col min-h-0 bg-white border border-border rounded-3xl sm:rounded-[2.5rem] relative overflow-hidden shadow-xl">
-        <div className="absolute top-0 inset-x-0 h-20 bg-gradient-to-b from-white/80 to-transparent pointer-events-none z-10" />
+      <div className="flex-1 flex flex-col min-h-0 bg-white dark:bg-slate-900 border border-border rounded-3xl sm:rounded-[2.5rem] relative overflow-hidden shadow-xl">
+        <div className="absolute top-0 inset-x-0 h-20 bg-gradient-to-b from-white/80 dark:from-slate-900/80 to-transparent pointer-events-none z-10" />
         
         {/* Messages Container */}
         <div 
@@ -150,7 +150,7 @@ export default function AIExplainerPage() {
                   "h-8 w-8 sm:h-10 sm:w-10 shrink-0 rounded-xl sm:rounded-2xl flex items-center justify-center border transition-all duration-500",
                   message.role === "ai" 
                     ? "bg-secondary/10 border-secondary/20 text-secondary" 
-                    : "bg-slate-50 border-border text-foreground"
+                    : "bg-slate-50 dark:bg-slate-950 border-border text-foreground"
                 )}>
                   {message.role === "ai" ? <Bot className="h-5 w-5 sm:h-6 sm:w-6" /> : <User className="h-5 w-5 sm:h-6 sm:w-6" />}
                 </div>
@@ -160,7 +160,7 @@ export default function AIExplainerPage() {
                     className={cn(
                       "px-4 py-3 sm:px-6 sm:py-4 rounded-2xl sm:rounded-[1.5rem] text-xs sm:text-sm leading-relaxed relative overflow-hidden",
                       message.role === "ai"
-                        ? "bg-slate-50 text-foreground border border-border"
+                        ? "bg-slate-50 dark:bg-slate-950 text-foreground border border-border"
                         : "bg-primary text-white shadow-lg shadow-primary/20"
                     )}
                   >
@@ -195,7 +195,7 @@ export default function AIExplainerPage() {
               <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl sm:rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center animate-pulse">
                 <BrainCircuit className="h-5 w-5 sm:h-6 sm:w-6 text-secondary" />
               </div>
-              <div className="bg-slate-50 border border-border px-4 py-3 sm:px-6 sm:py-4 rounded-2xl sm:rounded-[1.5rem] flex items-center gap-2">
+              <div className="bg-slate-50 dark:bg-slate-950 border border-border px-4 py-3 sm:px-6 sm:py-4 rounded-2xl sm:rounded-[1.5rem] flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce [animation-delay:-0.3s]" />
                 <div className="w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce [animation-delay:-0.15s]" />
                 <div className="w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce" />
@@ -206,7 +206,7 @@ export default function AIExplainerPage() {
         </div>
 
         {/* Input Area */}
-        <div className="p-4 sm:p-6 bg-slate-50 border-t border-border relative">
+        <div className="p-4 sm:p-6 bg-slate-50 dark:bg-slate-950/60 border-t border-border relative">
           <div className="max-w-4xl mx-auto relative flex items-end gap-3">
              <div className="flex-1 relative group">
                 <Textarea
@@ -219,7 +219,7 @@ export default function AIExplainerPage() {
                     }
                   }}
                   placeholder="Inquire about endodontic procedures, pharmacology, or clinical data..."
-                  className="min-h-[48px] sm:min-h-[60px] max-h-[150px] sm:max-h-[200px] w-full bg-white border-border rounded-xl sm:rounded-2xl px-4 py-3 sm:px-6 sm:py-4 pr-12 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-primary/50 focus-visible:bg-white resize-none transition-all no-scrollbar"
+                  className="min-h-[48px] sm:min-h-[60px] max-h-[150px] sm:max-h-[200px] w-full bg-white dark:bg-slate-950 border-border rounded-xl sm:rounded-2xl px-4 py-3 sm:px-6 sm:py-4 pr-12 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-primary/50 focus-visible:bg-white dark:focus-visible:bg-slate-900 resize-none transition-all no-scrollbar"
                 />
              </div>
              <Button 

@@ -174,7 +174,7 @@ function ExplainerHistoryContent() {
                                 AI Response
                               </span>
                             </div>
-                            <div className="bg-slate-50 border border-border rounded-xl p-4 text-xs text-foreground leading-relaxed prose prose-sm max-w-none">
+                            <div className="bg-slate-50 dark:bg-slate-900 border border-border rounded-xl p-4 text-xs text-foreground leading-relaxed prose prose-sm max-w-none dark:prose-invert">
                               <ReactMarkdown>{record.response}</ReactMarkdown>
                             </div>
                           </div>

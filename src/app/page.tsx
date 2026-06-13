@@ -44,7 +44,7 @@ function AnimatedBackground() {
       <div className="absolute bottom-0 left-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px]" />
       
       {/* Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000005_1px,transparent_1px),linear-gradient(to_bottom,#00000005_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_80%,transparent_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000005_1px,transparent_1px),linear-gradient(to_bottom,#00000005_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_80%,transparent_100%)]" />
 
       {/* Floating particles */}
       {mounted && (
@@ -132,7 +132,7 @@ export default function LandingPage() {
                   onClick={() => setIsVideoOpen(true)}
                   size="lg" 
                   variant="outline" 
-                  className="w-full sm:w-auto h-14 px-10 rounded-full border-border bg-white text-muted-foreground hover:text-primary hover:bg-slate-50 font-bold text-xs uppercase tracking-[0.2em] transition-all"
+                  className="w-full sm:w-auto h-14 px-10 rounded-full border-border bg-white dark:bg-slate-900 text-muted-foreground hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 font-bold text-xs uppercase tracking-[0.2em] transition-all cursor-pointer"
                 >
                   <PlayCircle className="mr-2 h-4 w-4 text-muted-foreground" /> View Demo
                 </Button>
@@ -144,7 +144,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className="mt-20 relative mx-auto max-w-5xl rounded-2xl border border-border bg-white p-2 shadow-2xl shadow-primary/5 overflow-hidden"
+              className="mt-20 relative mx-auto max-w-5xl rounded-2xl border border-border bg-white dark:bg-slate-900 p-2 shadow-2xl shadow-primary/5 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none" />
               <img 
@@ -158,7 +158,7 @@ export default function LandingPage() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="w-full py-24 md:py-32 bg-white relative border-t border-border">
+        <section id="features" className="w-full py-24 md:py-32 bg-white dark:bg-slate-950 relative border-t border-border">
           <div className="container mx-auto relative px-4 md:px-6">
             <div className="text-center space-y-4 mb-20">
               <h2 className="text-3xl md:text-5xl font-black text-foreground tracking-tighter uppercase italic">Supercharge Your Learning</h2>
@@ -196,7 +196,7 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="w-full py-32 relative overflow-hidden bg-slate-50 border-t border-border">
+        <section className="w-full py-32 relative overflow-hidden bg-slate-50 dark:bg-slate-900/50 border-t border-border">
           <div className="absolute top-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
           <div className="absolute bottom-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
           

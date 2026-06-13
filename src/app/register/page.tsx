@@ -58,7 +58,7 @@ export default function RegisterPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md bg-white/60 backdrop-blur-2xl border border-border/50 rounded-3xl shadow-2xl p-8 relative z-10"
+        className="w-full max-w-md bg-white/60 dark:bg-slate-900/80 backdrop-blur-2xl border border-border/50 rounded-3xl shadow-2xl p-8 relative z-10"
       >
         <div className="flex justify-center mb-6">
           <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
@@ -72,7 +72,7 @@ export default function RegisterPage() {
         </p>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg text-center">
+          <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 text-sm rounded-lg text-center">
             {error}
           </div>
         )}
@@ -85,7 +85,7 @@ export default function RegisterPage() {
               required
               placeholder="Dr. John Doe"
               autoComplete="off"
-              className="w-full px-4 py-3 bg-white/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
+              className="w-full px-4 py-3 bg-white/50 dark:bg-slate-950/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm text-foreground"
               value={data.name}
               onChange={(e) => setData({ ...data, name: e.target.value })}
             />
@@ -98,7 +98,7 @@ export default function RegisterPage() {
               required
               placeholder="doctor@example.com"
               autoComplete="off"
-              className="w-full px-4 py-3 bg-white/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
+              className="w-full px-4 py-3 bg-white/50 dark:bg-slate-950/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm text-foreground"
               value={data.email}
               onChange={(e) => setData({ ...data, email: e.target.value })}
             />
@@ -112,7 +112,7 @@ export default function RegisterPage() {
               minLength={8}
               placeholder="••••••••"
               autoComplete="new-password"
-              className="w-full px-4 py-3 bg-white/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
+              className="w-full px-4 py-3 bg-white/50 dark:bg-slate-950/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm text-foreground"
               value={data.password}
               onChange={(e) => setData({ ...data, password: e.target.value })}
             />

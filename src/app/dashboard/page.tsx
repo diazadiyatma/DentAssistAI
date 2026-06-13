@@ -29,6 +29,7 @@ const topicData = [
 export default function DashboardOverview() {
   const { data: session } = useAuthSession();
   const [displayName, setDisplayName] = useState<string>("");
+  const [timeRange, setTimeRange] = useState<"7D" | "30D" | "90D">("7D");
   
   // Load name from localStorage (set by settings page), fall back to session
   useEffect(() => {
@@ -54,10 +55,40 @@ export default function DashboardOverview() {
     quizCount: 0,
   });
   const [recentActivities, setRecentActivities] = useState<any[]>([]);
+  const [recentActivities7D, setRecentActivities7D] = useState<any[]>([]);
   const [explainerHistory, setExplainerHistory] = useState<any[]>([]);
   const [summaryHistory, setSummaryHistory] = useState<any[]>([]);
   const [quizHistory, setQuizHistory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const getChartData = () => {
+    switch (timeRange) {
+      case "30D":
+        return [
+          { day: 'Week 1', queries: 680, accuracy: 91 },
+          { day: 'Week 2', queries: 820, accuracy: 93 },
+          { day: 'Week 3', queries: 950, accuracy: 92 },
+          { day: 'Week 4', queries: 1100, accuracy: 94 },
+        ];
+      case "90D":
+        return [
+          { day: 'Month 1', queries: 2800, accuracy: 92 },
+          { day: 'Month 2', queries: 3400, accuracy: 93 },
+          { day: 'Month 3', queries: 4100, accuracy: 94 },
+        ];
+      case "7D":
+      default:
+        return [
+          { day: 'Mon', queries: 120, accuracy: 88 },
+          { day: 'Tue', queries: 180, accuracy: 92 },
+          { day: 'Wed', queries: 150, accuracy: 90 },
+          { day: 'Thu', queries: 250, accuracy: 94 },
+          { day: 'Fri', queries: 210, accuracy: 91 },
+          { day: 'Sat', queries: 90, accuracy: 95 },
+          { day: 'Sun', queries: 110, accuracy: 93 },
+        ];
+    }
+  };
 
   useEffect(() => {
     async function fetchStats() {
@@ -235,8 +266,12 @@ export default function DashboardOverview() {
                   <CardDescription className="text-muted-foreground font-medium">Daily query throughput and prediction accuracy.</CardDescription>
                 </div>
                 <div className="bg-slate-50 border border-border rounded-xl p-1 flex gap-1">
-                   {['7D', '30D', '90D'].map(t => (
-                     <button key={t} className={cn("px-3 py-1 text-[10px] font-black rounded-lg transition-all", t === '7D' ? 'bg-primary text-white' : 'text-muted-foreground hover:text-foreground')}>
+                   {(['7D', '30D', '90D'] as const).map(t => (
+                     <button
+                       key={t}
+                       onClick={() => setTimeRange(t)}
+                       className={cn("px-3 py-1 text-[10px] font-black rounded-lg transition-all cursor-pointer", t === timeRange ? 'bg-primary text-white' : 'text-muted-foreground hover:text-foreground')}
+                     >
                        {t}
                      </button>
                    ))}
@@ -246,7 +281,7 @@ export default function DashboardOverview() {
             <CardContent className="pt-10 relative z-10">
               <div className="h-[350px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={usageData}>
+                  <AreaChart data={getChartData()}>
                     <defs>
                       <linearGradient id="colorQueries" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#2D34D2" stopOpacity={0.1}/>

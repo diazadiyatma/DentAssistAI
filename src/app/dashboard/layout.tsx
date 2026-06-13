@@ -9,6 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export default function DashboardLayout({
   children,
@@ -135,13 +136,13 @@ export default function DashboardLayout({
       
       <div className="flex-1 md:ml-64 flex flex-col h-screen relative w-full overflow-hidden">
         {/* Medical Top Navbar */}
-        <header className="h-20 flex items-center justify-between px-4 md:px-8 border-b border-border bg-white/80 backdrop-blur-xl z-50">
+        <header className="h-20 flex items-center justify-between px-4 md:px-8 border-b border-border bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl z-50">
           <div ref={searchContainerRef} className="flex items-center gap-2 md:gap-0 max-w-md w-full relative group">
             {/* Mobile Hamburger Toggle */}
             <Button 
               variant="ghost" 
               size="icon" 
-              className="md:hidden text-muted-foreground hover:text-primary hover:bg-slate-50 rounded-xl flex-shrink-0"
+              className="md:hidden text-muted-foreground hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl flex-shrink-0"
               onClick={() => setIsSidebarOpen(true)}
             >
               <Menu className="h-5 w-5" />
@@ -159,7 +160,7 @@ export default function DashboardLayout({
                 }}
                 onFocus={() => setShowDropdown(true)}
                 placeholder="Search medical records, AI insights..." 
-                className="w-full bg-slate-50 border border-border rounded-full py-2.5 pl-10 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50 focus:bg-white transition-all"
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-border rounded-full py-2.5 pl-10 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50 focus:bg-white dark:focus:bg-slate-900 transition-all text-foreground"
               />
               <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-1.5 py-0.5 rounded border border-border bg-background text-[10px] text-muted-foreground font-mono">
                 <Command className="w-2.5 h-2.5" /> K
@@ -172,7 +173,7 @@ export default function DashboardLayout({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute left-0 right-0 mt-2 bg-white border border-border rounded-2xl shadow-xl z-[99] max-h-96 overflow-y-auto overflow-x-hidden p-2 space-y-1"
+                    className="absolute left-0 right-0 mt-2 bg-white dark:bg-slate-900 border border-border rounded-2xl shadow-xl z-[99] max-h-96 overflow-y-auto overflow-x-hidden p-2 space-y-1"
                   >
                     {isSearching ? (
                       <div className="flex items-center justify-center py-6 gap-2 text-sm text-muted-foreground">
@@ -207,7 +208,7 @@ export default function DashboardLayout({
                           <button
                             key={item.id}
                             onClick={() => handleResultClick(item)}
-                            className="w-full text-left flex items-start gap-3 p-3 hover:bg-slate-50 rounded-xl transition-colors group/item"
+                            className="w-full text-left flex items-start gap-3 p-3 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-colors group/item"
                           >
                             <div className={`p-2 rounded-lg border shrink-0 ${badgeColor}`}>
                               <Icon className="w-4 h-4" />
@@ -238,8 +239,8 @@ export default function DashboardLayout({
             </div>
           </div>
 
-          <div className="flex items-center gap-5">
-
+          <div className="flex items-center gap-2 sm:gap-4 ml-3 shrink-0">
+            <ThemeToggle />
             
             <div className="h-8 w-px bg-border mx-2" />
             
@@ -262,7 +263,7 @@ export default function DashboardLayout({
                 variant="ghost" 
                 size="icon" 
                 onClick={() => signOut()}
-                className="text-muted-foreground hover:text-red-500 hover:bg-red-50 transition-colors rounded-xl ml-2"
+                className="text-muted-foreground hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors rounded-xl ml-2"
                 title="Logout"
               >
                 <LogOut className="h-5 w-5" />

@@ -188,7 +188,7 @@ function SummaryHistoryContent() {
                                 Original Text
                               </span>
                             </div>
-                            <div className="bg-slate-50 border border-border rounded-xl p-4 text-xs text-foreground leading-relaxed max-h-48 overflow-y-auto no-scrollbar">
+                            <div className="bg-slate-50 dark:bg-slate-900 border border-border rounded-xl p-4 text-xs text-foreground leading-relaxed max-h-48 overflow-y-auto no-scrollbar">
                               {record.originalContent}
                             </div>
                           </div>

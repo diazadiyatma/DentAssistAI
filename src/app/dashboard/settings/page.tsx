@@ -152,8 +152,8 @@ export default function SettingsPage() {
               className={cn(
                 "w-full flex items-center gap-2.5 px-4 py-3 rounded-xl transition-all duration-300 font-bold text-xs sm:text-sm text-left relative overflow-hidden",
                 activeTab === tab.id 
-                  ? "bg-white text-primary shadow-sm border border-border" 
-                  : "text-muted-foreground hover:text-foreground hover:bg-slate-50"
+                  ? "bg-white dark:bg-slate-900 text-primary shadow-sm border border-border" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-slate-50 dark:hover:bg-slate-800/50"
               )}
             >
               {activeTab === tab.id && (
@@ -179,7 +179,7 @@ export default function SettingsPage() {
             {activeTab === "preferences" && (
               <div className="space-y-6">
                 <Card className="medical-card overflow-hidden">
-                  <CardHeader className="border-b border-border bg-slate-50/50 p-6">
+                  <CardHeader className="border-b border-border bg-slate-50/50 dark:bg-slate-900/50 p-6">
                     <CardTitle className="text-lg font-black">Clinical Preferences</CardTitle>
                     <CardDescription className="font-medium mt-1 text-xs">
                       Customize your clinical role and workspace details. To update your name or email, visit your{" "}
@@ -198,7 +198,7 @@ export default function SettingsPage() {
                               setClinicalTitle(e.target.value);
                               triggerAutoSave();
                             }}
-                            className="w-full bg-slate-50 border border-border rounded-xl py-2 px-4 pl-12 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all font-medium appearance-none"
+                            className="w-full bg-slate-50 dark:bg-slate-950 border border-border rounded-xl py-2 px-4 pl-12 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-900 transition-all font-medium appearance-none text-foreground"
                           >
                             <option>Chief Resident</option>
                             <option>General Dentist</option>
@@ -220,7 +220,7 @@ export default function SettingsPage() {
                               triggerAutoSave();
                             }}
                             placeholder="e.g., RSU-DENTAL-001"
-                            className="w-full bg-slate-50 border border-border rounded-xl py-2 px-4 pl-12 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all font-medium"
+                            className="w-full bg-slate-50 dark:bg-slate-950 border border-border rounded-xl py-2 px-4 pl-12 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-900 transition-all font-medium text-foreground"
                           />
                         </div>
                       </div>
@@ -233,7 +233,7 @@ export default function SettingsPage() {
             {(activeTab === "notifications" || activeTab === "security" || activeTab === "appearance") && (
               <Card className="medical-card">
                 <CardContent className="p-10 sm:p-16 flex flex-col items-center justify-center text-center">
-                  <div className="h-16 w-16 bg-slate-50 border border-border rounded-2xl flex items-center justify-center mb-4 text-muted-foreground">
+                  <div className="h-16 w-16 bg-slate-50 dark:bg-slate-900 border border-border rounded-2xl flex items-center justify-center mb-4 text-muted-foreground">
                     <Database className="w-8 h-8 opacity-20" />
                   </div>
                   <h3 className="text-lg font-black text-foreground">Feature in Calibration</h3>

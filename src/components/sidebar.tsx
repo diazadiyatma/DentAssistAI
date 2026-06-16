@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 
 const sidebarItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard, color: "text-primary", bg: "bg-primary/10" },
-  { name: "Profile", href: "/dashboard/profile", icon: UserCircle, color: "text-primary", bg: "bg-primary/10" },
   { name: "AI Explainer", href: "/dashboard/explainer", icon: MessageSquare, color: "text-secondary", bg: "bg-secondary/10" },
   { name: "Summary Generator", href: "/dashboard/summary", icon: FileText, color: "text-primary", bg: "bg-primary/10" },
   { name: "Quiz Generator", href: "/dashboard/quiz", icon: HelpCircle, color: "text-secondary", bg: "bg-secondary/10" },

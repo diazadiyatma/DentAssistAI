@@ -2,14 +2,14 @@
 
 import { Sidebar } from "@/components/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Search, Command, Menu, X, MessageSquare, FileText, HelpCircle, Loader2 } from "lucide-react";
+import { Search, Command, Menu, X, MessageSquare, FileText, HelpCircle, Loader2, UserCircle, Settings, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { LogOut } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import Link from "next/link";
 
 export default function DashboardLayout({
   children,
@@ -22,6 +22,7 @@ export default function DashboardLayout({
   const [displayName, setDisplayName] = useState<string>("");
   const [displayEmail, setDisplayEmail] = useState<string>("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   // Search State
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,6 +32,7 @@ export default function DashboardLayout({
   
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const profileDropdownRef = useRef<HTMLDivElement>(null);
 
   // Focus on Ctrl+K or Cmd+K
   useEffect(() => {
@@ -50,6 +52,9 @@ export default function DashboardLayout({
     const handleClickOutside = (e: MouseEvent) => {
       if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
         setShowDropdown(false);
+      }
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(e.target as Node)) {
+        setIsProfileOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -244,30 +249,77 @@ export default function DashboardLayout({
             
             <div className="h-8 w-px bg-border mx-2" />
             
-            <div className="flex items-center gap-3 pl-2">
-              <div className="text-right hidden sm:block">
-                <p className="text-sm font-bold text-foreground leading-tight">
-                  {displayName}
-                </p>
-                <p className="text-[10px] text-primary uppercase tracking-widest font-bold">
-                  {displayEmail}
-                </p>
-              </div>
-              <Avatar className="h-10 w-10 border border-border ring-2 ring-transparent hover:ring-primary/50 transition-all cursor-pointer">
-                <AvatarImage src="" />
-                <AvatarFallback className="bg-medical-gradient text-white font-bold text-xs">
-                  {displayName?.charAt(0).toUpperCase() || "U"}
-                </AvatarFallback>
-              </Avatar>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={() => signOut()}
-                className="text-muted-foreground hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors rounded-xl ml-2"
-                title="Logout"
+            <div ref={profileDropdownRef} className="relative flex items-center gap-3 pl-2">
+              <div 
+                className="flex items-center gap-3 cursor-pointer select-none group/avatar"
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
               >
-                <LogOut className="h-5 w-5" />
-              </Button>
+                <div className="text-right hidden sm:block">
+                  <p className="text-sm font-bold text-foreground leading-tight group-hover/avatar:text-primary transition-colors">
+                    {displayName}
+                  </p>
+                  <p className="text-[10px] text-primary uppercase tracking-widest font-bold">
+                    {displayEmail}
+                  </p>
+                </div>
+                <Avatar className="h-10 w-10 border border-border ring-2 ring-transparent group-hover/avatar:ring-primary/50 transition-all">
+                  <AvatarImage src="" />
+                  <AvatarFallback className="bg-medical-gradient text-white font-bold text-xs">
+                    {displayName?.charAt(0).toUpperCase() || "U"}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+
+              {/* Profile Dropdown with AnimatePresence */}
+              <AnimatePresence>
+                {isProfileOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                    className="absolute right-0 top-full mt-3 w-56 rounded-2xl border border-white/10 bg-[#0F172A] p-2 shadow-2xl z-[100]"
+                  >
+                    {/* Header info inside dropdown for small screens */}
+                    <div className="px-3 py-2 border-b border-white/5 sm:hidden">
+                      <p className="text-xs font-bold text-white truncate">{displayName}</p>
+                      <p className="text-[9px] text-primary uppercase tracking-wider font-bold truncate">{displayEmail}</p>
+                    </div>
+
+                    <div className="space-y-0.5">
+                      <Link 
+                        href="/dashboard/profile"
+                        onClick={() => setIsProfileOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-white/5 transition-all group"
+                      >
+                        <UserCircle className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
+                        User Profile
+                      </Link>
+                      <Link 
+                        href="/dashboard/settings"
+                        onClick={() => setIsProfileOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-white/5 transition-all group"
+                      >
+                        <Settings className="w-4 h-4 text-secondary group-hover:scale-110 transition-transform" />
+                        Settings
+                      </Link>
+                      
+                      <div className="h-px bg-white/5 my-1" />
+                      
+                      <button
+                        onClick={() => {
+                          setIsProfileOpen(false);
+                          signOut();
+                        }}
+                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-rose-400 hover:text-rose-200 hover:bg-rose-500/10 transition-all group"
+                      >
+                        <LogOut className="w-4 h-4 text-rose-400 group-hover:translate-x-0.5 transition-transform" />
+                        Sign Out
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </header>

@@ -21,6 +21,7 @@ export default function DashboardLayout({
   const { data: session, status } = useSession();
   const [displayName, setDisplayName] = useState<string>("");
   const [displayEmail, setDisplayEmail] = useState<string>("");
+  const [displayAvatar, setDisplayAvatar] = useState<string>("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
@@ -92,7 +93,7 @@ export default function DashboardLayout({
     router.push(`/dashboard/history/${item.type}?id=${item.id}`);
   };
 
-  // Sync name/email from localStorage (saved by settings page), fallback to session
+  // Sync name/email/avatar from localStorage, fallback to session, refresh from API in background
   useEffect(() => {
     const syncProfile = () => {
       if (!session?.user) return;
@@ -103,14 +104,37 @@ export default function DashboardLayout({
           const parsed = JSON.parse(stored);
           setDisplayName(parsed.fullName || session.user.name || "Dr. User");
           setDisplayEmail(parsed.email || session.user.email || "Dentist");
+          setDisplayAvatar(parsed.image || "");
           return;
         }
       } catch {}
       setDisplayName(session.user.name || "Dr. User");
       setDisplayEmail(session.user.email || "Dentist");
+      setDisplayAvatar("");
     };
 
     syncProfile();
+
+    if (session?.user) {
+      const storageKey = `dentassist_profile_${session.user.id}`;
+      fetch("/api/profile")
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.success) {
+            const raw = localStorage.getItem(storageKey);
+            let existing = {};
+            try { if (raw) existing = JSON.parse(raw); } catch {}
+            localStorage.setItem(storageKey, JSON.stringify({
+              ...existing,
+              fullName: data.profile.name,
+              email: data.profile.email,
+              image: data.profile.image,
+            }));
+            syncProfile();
+          }
+        })
+        .catch(console.error);
+    }
 
     // Also listen for storage changes (when settings page saves)
     window.addEventListener("storage", syncProfile);
@@ -263,7 +287,7 @@ export default function DashboardLayout({
                   </p>
                 </div>
                 <Avatar className="h-10 w-10 border border-border ring-2 ring-transparent group-hover/avatar:ring-primary/50 transition-all">
-                  <AvatarImage src="" />
+                  <AvatarImage src={displayAvatar} />
                   <AvatarFallback className="bg-medical-gradient text-white font-bold text-xs">
                     {displayName?.charAt(0).toUpperCase() || "U"}
                   </AvatarFallback>

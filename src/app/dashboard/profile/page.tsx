@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useSession } from "next-auth/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -12,6 +13,7 @@ import {
   HelpCircle,
   Loader2,
   Activity,
+  Camera,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -19,6 +21,7 @@ import { cn } from "@/lib/utils";
 interface ProfileData {
   name: string | null;
   email: string;
+  image: string | null;
   memberSince: string;
   explainerCount: number;
   summaryCount: number;
@@ -26,8 +29,11 @@ interface ProfileData {
 }
 
 export default function ProfilePage() {
+  const { data: session } = useSession();
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetch("/api/profile")
@@ -38,6 +44,78 @@ export default function ProfilePage() {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = async () => {
+        const canvas = document.createElement("canvas");
+        const MAX_WIDTH = 256;
+        const MAX_HEIGHT = 256;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx?.drawImage(img, 0, 0, width, height);
+
+        const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+
+        try {
+          const res = await fetch("/api/profile", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ image: compressedBase64 }),
+          });
+          const data = await res.json();
+          if (data.success) {
+            setProfile(prev => prev ? { ...prev, image: compressedBase64 } : null);
+            
+            // Sync with localStorage
+            if (session?.user?.id) {
+              const storageKey = `dentassist_profile_${session.user.id}`;
+              let existing: Record<string, unknown> = {};
+              try {
+                const raw = localStorage.getItem(storageKey);
+                if (raw) existing = JSON.parse(raw);
+              } catch {}
+              localStorage.setItem(
+                storageKey,
+                JSON.stringify({ ...existing, image: compressedBase64 })
+              );
+              window.dispatchEvent(new Event("storage"));
+            }
+          }
+        } catch (err) {
+          console.error("Failed to upload avatar:", err);
+        } finally {
+          setUploading(false);
+        }
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
 
   const displayName = profile?.name ?? "Doctor";
   const initials = displayName
@@ -142,13 +220,35 @@ export default function ProfilePage() {
               <CardContent className="p-4 sm:p-6">
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-4 sm:gap-6">
                   {/* Avatar */}
-                  <div className="shrink-0">
-                    <Avatar className="h-16 w-16 sm:h-20 sm:w-20 border-4 border-white shadow-2xl shadow-primary/10">
-                      <AvatarImage src="" />
+                  <div className="shrink-0 relative group">
+                    <Avatar className="h-16 w-16 sm:h-20 sm:w-20 border-4 border-white shadow-2xl shadow-primary/10 overflow-hidden relative">
+                      <AvatarImage src={profile?.image || ""} />
                       <AvatarFallback className="bg-medical-gradient text-white text-xl font-black">
                         {initials}
                       </AvatarFallback>
                     </Avatar>
+                    <button 
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploading}
+                      className={cn(
+                        "absolute inset-0 bg-black/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer",
+                        uploading && "opacity-100 bg-black/60"
+                      )}
+                      title="Change Profile Picture"
+                    >
+                      {uploading ? (
+                        <Loader2 className="w-5 h-5 text-white animate-spin" />
+                      ) : (
+                        <Camera className="w-5 h-5 text-white" />
+                      )}
+                    </button>
+                    <input 
+                      type="file" 
+                      ref={fileInputRef} 
+                      onChange={handleFileChange} 
+                      accept="image/*" 
+                      className="hidden" 
+                    />
                   </div>
 
                   {/* Info */}

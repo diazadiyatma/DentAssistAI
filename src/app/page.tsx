@@ -148,7 +148,7 @@ export default function LandingPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none" />
               <img 
-                src="/foto%20dental%20assist%20ai.jpg" 
+                src="/dentist-home.jpg" 
                 alt="Dashboard Preview Mock" 
                 className="rounded-xl border border-border opacity-90 object-cover h-[300px] md:h-[500px] w-full"
               />
@@ -261,7 +261,7 @@ export default function LandingPage() {
                     controls
                     autoPlay
                     src="/demo.mp4"
-                    poster="/foto%20dental%20assist%20ai.jpg"
+                    poster="/dentist-home.jpg"
                   >
                     Your browser does not support the video tag.
                   </video>

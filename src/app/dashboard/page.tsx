@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { BrainCircuit, FileText, HelpCircle, Activity, TrendingUp, Users, MessageSquare, ArrowUpRight, Target, Clock, Star, BookOpen, ScrollText, GraduationCap } from "lucide-react";
+import { BrainCircuit, FileText, HelpCircle, Activity, TrendingUp, Users, MessageSquare, ArrowUpRight, Target, Clock, Star, BookOpen, ScrollText, GraduationCap, Download } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 import { useSession as useAuthSession } from "next-auth/react";
+import { generatePDFReport } from "@/lib/reportGenerator";
 
 const usageData = [
   { day: 'Mon', queries: 120, accuracy: 88 },
@@ -30,6 +31,19 @@ export default function DashboardOverview() {
   const { data: session } = useAuthSession();
   const [displayName, setDisplayName] = useState<string>("");
   const [timeRange, setTimeRange] = useState<"7D" | "30D" | "90D">("7D");
+  const [downloadingReport, setDownloadingReport] = useState(false);
+
+  const handleDownloadReport = async () => {
+    try {
+      setDownloadingReport(true);
+      await generatePDFReport(statsData, displayName, session?.user?.email || "");
+    } catch (error) {
+      console.error("Failed to generate report:", error);
+      alert("Failed to download PDF report. Please try again.");
+    } finally {
+      setDownloadingReport(false);
+    }
+  };
   
   // Load name from localStorage (set by settings page), fall back to session
   useEffect(() => {
@@ -204,6 +218,20 @@ export default function DashboardOverview() {
           </motion.p>
         </div>
         
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Button
+            onClick={handleDownloadReport}
+            disabled={downloadingReport || loading}
+            className="w-full sm:w-auto h-11 px-5 bg-primary hover:bg-primary/90 text-white font-black text-xs uppercase tracking-[0.15em] rounded-xl shadow-md shadow-primary/10 transition-all hover:scale-[1.02] active:scale-[0.98] group flex items-center gap-2 cursor-pointer"
+          >
+            <Download className={cn("h-4 w-4 transition-transform group-hover:translate-y-0.5", downloadingReport && "animate-bounce")} />
+            {downloadingReport ? "Generating Report..." : "Download Report"}
+          </Button>
+        </motion.div>
       </div>
 
       {/* Stats Grid */}
